@@ -1,7 +1,0 @@
-*.git
-*.idea
-*.settings
-target
-*.classpath
-*.project
-ctp-core.iml
