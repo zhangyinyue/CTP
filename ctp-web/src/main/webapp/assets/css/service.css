@@ -1,0 +1,49 @@
+
+	.serve-title .h1{
+		font-size:24px;
+		text-align:center;
+	}
+	.serve-title .h2{
+		font-size: 18px;
+	    text-align: center;
+	    margin-top: 10px;
+	    color: red;
+	}
+	.serve-header {
+		height:65px;
+		border-bottom: 1px solid #000;
+	}
+	.serve-header .logo{
+		display: inline-block;
+	    height: 50px;
+	    width: 50px;
+	    border-radius: 50%;
+	}
+	.serve-header .span2,.serve-header .span1{
+		height:50px;
+		text-align: center;
+		line-height: 50px;
+	}
+	.serve-header .qianming div{
+		height:25px;
+		font-size: 12px;
+		line-height: 25px;
+	}
+	.serve-content{
+		 height: auto;
+   		 overflow: hidden;
+	}
+	.serve-content .serve-content-text{
+		height: 30px;
+		font-size: 14px;
+	}
+	.serve-content .serve-content-img{
+		/* height: 300px; */
+	    width: 500px;
+	    margin: 0 auto;
+	}
+	.serve-content .serve-content-img img{
+		height: 100%;
+		width: 100%;
+		display:inline-block;
+	}

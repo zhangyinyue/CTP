@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        ">
+	<context:component-scan base-package="com.ctp.dao.impl">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+	<context:component-scan base-package="com.ctp.jedis.client">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+	<context:component-scan base-package="com.ctp.service.admin.impl">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+	<context:component-scan base-package="com.ctp.jedis.cache">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+	<!-- 读配置文件 -->
+	<bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:db.properties</value>
+				<value>classpath*:hibernate.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<!-- 可以加多个包 -->
+				<value>com.ctp.model.po</value>
+			</list>
+		</property>
+		 <property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<!-- <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.query.substitutions">${hibernate.query.substitutions}</prop>
+				<prop key="hibernate.default_batch_fetch_size">${hibernate.default_batch_fetch_size}</prop>
+				<prop key="hibernate.max_fetch_depth">${hibernate.max_fetch_depth}</prop>
+				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">${hibernate.bytecode.use_reflection_optimizer}</prop>
+ -->
+				<!-- <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+				<prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">${net.sf.ehcache.configurationResourceName}</prop>
+				<prop key="hibernate.cache.use_structured_entries">${hibernate.cache.use_structured_entries}</prop> -->
+			</props>
+		</property> 
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- 数据库基础信息配置 -->
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!--连接池中保留的最小连接数。-->            
+	    <property name="minPoolSize" value="10" />        
+	    <!--连接池中保留的最大连接数。Default: 15 -->         
+	    <property name="maxPoolSize" value="100" />        
+	    <!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->               
+	    <property name="maxIdleTime" value="1800" />        
+	    <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->               
+	    <property name="acquireIncrement" value="3" />        
+	    <property name="maxStatements" value="1000" />         
+	    <property name="initialPoolSize" value="10" />          
+	    <!--每60秒检查所有连接池中的空闲连接。Default: 0 -->       
+	    <property name="idleConnectionTestPeriod" value="60" />          
+	    <!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->       
+	    <property name="acquireRetryAttempts" value="30" />         
+	    <property name="breakAfterAcquireFailure" value="true" />             
+	    <property name="testConnectionOnCheckout" value="false" />
+	</bean>
+	
+	<bean id="baseDao" class="com.ctp.dao.base.impl.BaseDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 开启AOP监听 只对当前配置文件有效 -->
+	<aop:aspectj-autoproxy expose-proxy="true" />
+	
+	<!-- 开启注解事务 只对当前配置文件有效 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="query*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="has*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="check*" propagation="NEVER" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" rollback-for="Throwable" />
+		</tx:attributes>
+	</tx:advice>
+<!-- 
+execution(public * *(..))  
++	    任何一个以“set”开始的方法的执行：  
++	     
++	    execution(* set*(..))  
++	    AccountService 接口的任意方法的执行：  
++	     
++	    execution(* com.xyz.service.AccountService.*(..))  
++	    定义在service包里的任意方法的执行：  
++	     
++	    execution(* com.xyz.service.*.*(..))  
++	    定义在service包或者子包里的任意方法的执行：  
++	     
++	    execution(* com.xyz.service..*.*(..))  
++	    在service包里的任意连接点（在Spring AOP中只是方法执行） ：   -->
+	<!-- 只对业务逻辑层实施事务 -->
+	<aop:config expose-proxy="true">
+		<aop:pointcut id="txPointcut"
+			expression="execution(* com.ctp.service..*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+	</aop:config>
+
+		<!-- jedis 连接池配置参数：  -->  
+        <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+		    <property name="maxTotal" value="1000"/> <!-- 控制一个pool可分配多少个jedis实例 -->  
+		    <property name="maxIdle" value="200" />   <!-- 控制一个pool最多有多少个状态为idle(空闲)的jedis实例 -->  
+		    <property name="maxWaitMillis" value="2000" />  <!-- 表示当borrow一个jedis实例时，最大的等待时间，如果超过等待时间，则直接抛出JedisConnectionException -->  
+		    <property name="testOnBorrow" value="true" /> <!-- 在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的 -->  
+		</bean>  
+        <!-- jedis 连接池  连接本地redis服务 构造器注入-->  
+        <bean id="pool" class="redis.clients.jedis.JedisPool">  
+            <constructor-arg index="0"  ref="jedisPoolConfig"/>   
+            <constructor-arg index="1" value="127.0.0.1"/>   
+            <constructor-arg index="2" value="6379"/>  
+            <constructor-arg index="3" value="2000"/>  <!-- 超时时间 -->
+           <!--  <constructor-arg index="4" value="2000"/> -->  <!-- 密码 -->
+        </bean>  
+	
+</beans>

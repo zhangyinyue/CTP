@@ -1,0 +1,95 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.3.xsd
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<!-- 注解扫描 -->
+	<context:component-scan base-package="com.ctp.controller.admin">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" /><!-- 指定扫描@Controller注解 -->
+	</context:component-scan>
+
+<!-- 开启注解  没有开启注解的话，controller将不能使用-->  
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>  
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>  
+
+	<!-- <mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<beans:bean id="fastJsonHttpMessageConverter"
+				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<beans:property name="supportedMediaTypes">
+					<beans:list>
+						<beans:value>application/json</beans:value>
+					</beans:list>
+				</beans:property>
+				<beans:property name="features">
+					<beans:array>
+						<beans:value>DisableCircularReferenceDetect</beans:value>
+					</beans:array>
+				</beans:property>
+			</beans:bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven> -->
+
+	<!-- <bean id="DisableCircularReferenceDetect"
+		class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+		<property name="staticField"
+			value="com.alibaba.fastjson.serializer.SerializerFeature.DisableCircularReferenceDetect"></property>
+	</bean> -->
+
+	<!-- jsp页面解析器，当Controller返回XXX字符串时，先通过拦截器，然后该类就会在/WEB-INF/views/目录下，查找XXX.jsp文件 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/admin/"></property>
+		<property name="suffix" value=".jsp"></property>
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+	</bean>
+
+	<!-- <mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="com.p.u.annotation.RequestMethodArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven> -->
+
+	<!-- 标签配置拦截器 -->
+	  <mvc:interceptors>
+		<!-- 可配置多个拦截器，按顺序执行 -->
+		 <mvc:interceptor>
+			<mvc:mapping path="/admin*/**" />
+			<mvc:exclude-mapping path="/adminUser/toLogin"/><!--  不拦截的url -->
+            <mvc:exclude-mapping path="/adminUser/login"/><!--  不拦截的url -->
+			<bean class="com.ctp.admin.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.ctp.admin.interceptor.ContextInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors> 
+
+	<!-- 配置静态目录 -->
+	<mvc:resources location="/statics/" mapping="/statics/**" />
+	<mvc:resources location="/assets/" mapping="/assets/**" />
+	
+	<!-- 文件上传配置 -->
+	<!-- <bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="maxUploadSize">
+			<value>104857600</value>
+		</property>
+		<property name="maxInMemorySize">
+			<value>10960</value>
+		</property>
+	</bean> -->
+
+</beans>

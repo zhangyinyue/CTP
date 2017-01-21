@@ -1,0 +1,4 @@
+/* ::-webkit-inner-spin-button { visibility: hidden; } */
+::-webkit-clear-button {
+     -webkit-appearance: none; 
+}

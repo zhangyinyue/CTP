@@ -1,0 +1,19 @@
+.order .title,.business .title,.server .title{
+		font-size: 18px;
+    	line-height: 40px;	
+    	border-bottom: 1px solid #ccc;
+	}
+	.order,.business,.server{
+		  
+		  margin-bottom: 15px;
+	}
+	.order .content,.business .content,.server .content{
+		font-size: 14px;
+   		line-height: 30px;
+	}
+	.page-content .head{
+		font-size: 18px;
+	}
+	.server .address{
+		margin-left: 70px;
+	}
