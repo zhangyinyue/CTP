@@ -317,7 +317,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements IBaseDao {
 
 	/**
 	 * 查询
-	 * @param 原生sql
+	 * @param sql
 	 * @param parameters
 	 * @return
 	 */
@@ -372,7 +372,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements IBaseDao {
 	}
 	/**
 	 * 查询
-	 * @param 原生sql
+	 * @param sql
 	 * @param parameters
 	 * @return
 	 */
@@ -458,7 +458,6 @@ public class BaseDaoImpl extends HibernateDaoSupport implements IBaseDao {
 	 * @param parameters
 	 * @return
 	 */
-	
 	public int getCountBySql(String countSql,Map parameters){
 		this.checkEmpty(countSql);
 		Query query = this.getSession().createSQLQuery(countSql);
@@ -467,18 +466,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements IBaseDao {
 		}
 		return ((BigInteger)query.uniqueResult()).intValue();
 	}
-	
-	
-	
-	/**
-	 * 分页查询
-	 * @param pageNo
-	 * @param pageSize
-	 * @param countHql
-	 * @param queryHql
-	 * @param parameters
-	 * @return
-	 */
+
 	public ListPage queryByHql(int pageNo,int pageSize,String countHql,String queryHql){
 		return queryByHql(pageNo,pageSize,countHql,queryHql,null);
 	}
@@ -532,7 +520,6 @@ public class BaseDaoImpl extends HibernateDaoSupport implements IBaseDao {
 	 * @param parameters
 	 * @return
 	 */
-	
 	public ListPage queryBySql(int pageNo,int pageSize,String countSql,String querySql,Map parameters){
 		try {
 			//初始化ListPage

@@ -40,11 +40,12 @@ public interface IBaseDao {
 	 * @param parameters
 	 */ 
 	void updateByHql(String hql,Object... parameters);
+
 	/**
 	 * 更新
 	 * @param hql
-	 * @param parameters
-	 */ 
+	 * @param map
+	 */
 	void updateByHql(String hql, Map<String,Object> map);
 	
 	/**
@@ -209,7 +210,6 @@ public interface IBaseDao {
 	 * @param pageSize 查询页数据条数
 	 * @param countHql 查询总数HQL语句
 	 * @param queryHql 查询数据HQL语句
-	 * @param parameters 查询绑定参数
 	 * @return
 	 */
 	ListPage queryByHql(int pageNo,int pageSize,String countHql,String queryHql);
