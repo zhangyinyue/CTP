@@ -21,10 +21,10 @@
 	</modules>
 	
 	  <!-- 配置私服工厂 --> 
-  <!--<repositories>
+  <repositories>
         <repository>
             <id>nexus</id>
-            <url>http://localhost:8081/repository/maven-public/</url>
+            <url>http://127.0.0.1:8088/repository/maven-public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -36,7 +36,7 @@
    <pluginRepositories>
         <pluginRepository>
             <id>nexus</id>
-            <url>http://localhost:8081/repository/maven-public/</url>
+            <url>http://127.0.0.1:8088/repository/maven-public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -45,19 +45,19 @@
            </snapshots>
         </pluginRepository>
   </pluginRepositories>
-   &lt;!&ndash; 配置发布到私服 &ndash;&gt;
+   <!-- 配置发布到私服-->
    <distributionManagement>
         <repository>
             <id>releases</id>
             <name>Nexus Release Repository</name>
-            <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+            <url>http://127.0.0.1:8088/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
             <name>Nexus Snapshot Repository</name>
-            <url>http://localhost:8081/repository/maven-snapshots/</url>
+            <url>http://127.0.0.1:8088/repository/maven-snapshots/</url>
         </snapshotRepository>
-  </distributionManagement> -->
+  </distributionManagement>
 
 	<dependencyManagement>
 		<dependencies>
