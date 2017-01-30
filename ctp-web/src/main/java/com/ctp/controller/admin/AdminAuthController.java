@@ -154,7 +154,8 @@ public class AdminAuthController {
 	
 	/**
 	 * 保存权限项
-	 * @param role
+	 * @param auth
+	 * @param response
 	 */
 	@RequestMapping(value=ControllerName.ADMIN_AUTH_SAVE,method=RequestMethod.POST)
 	public void toAuthSave(TAuth auth,HttpServletResponse response){

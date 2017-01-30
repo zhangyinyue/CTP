@@ -182,6 +182,7 @@
 			    <groupId>javax.servlet</groupId>
 			    <artifactId>javax.servlet-api</artifactId>
 			    <version>3.1.0</version>
+				<scope>test</scope>
 			</dependency>
 
 			<dependency>
@@ -289,7 +290,7 @@
 				        <path>/ctp</path>  
 				        <port>8080</port>  
 				        <warFile>${project.build.directory}/ctp-web-0.0.1-SNAPSHOT.war</warFile>  
-				        <warSourceDirectory>src/main/webapp</warSourceDirectory>  
+				        <!--<warSourceDirectory>src/main/webapp</warSourceDirectory> -->
 	                </configuration>
 	            </plugin>
 		 </plugins>

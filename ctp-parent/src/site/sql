@@ -1,0 +1,302 @@
+drop table if exists t_account;
+
+drop table if exists t_address;
+
+drop table if exists t_auth;
+
+drop table if exists t_big_class;
+
+drop table if exists t_goods;
+
+drop table if exists t_goods_class;
+
+drop table if exists t_goods_evaluate;
+
+drop table if exists t_goods_evaluate_picture;
+
+drop table if exists t_goods_order;
+
+drop table if exists t_goods_type;
+
+drop table if exists t_identify;
+
+drop table if exists t_order_head;
+
+drop table if exists t_refund;
+
+drop table if exists t_role;
+
+drop table if exists t_role_auth;
+
+drop table if exists t_shopping_car;
+
+drop table if exists t_small_class;
+
+drop table if exists t_store;
+
+drop table if exists t_user;
+
+drop table if exists t_user_login_log;
+
+/*==============================================================*/
+/* Table: t_account                                             */
+/*==============================================================*/
+create table t_account
+(
+   fid                  varchar(100) not null,
+   faccount             varchar(50),
+   ftype                tinyint,
+   fuser_id             varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_address                                             */
+/*==============================================================*/
+create table t_address
+(
+   fid                  varchar(100) not null,
+   faddress             varchar(200),
+   fphone               varchar(20),
+   fpost_code           varchar(6),
+   fuser_id             varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_auth                                                */
+/*==============================================================*/
+create table t_auth
+(
+   fid                  varchar(100) not null,
+   fparent_id           varchar(100),
+   fname                varchar(20),
+   furl                 varchar(100),
+   forderby             int,
+   ficon                varchar(30),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_big_class                                           */
+/*==============================================================*/
+create table t_big_class
+(
+   fid                  varchar(100) not null,
+   fname                varchar(100),
+   fstore_id            varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_goods                                               */
+/*==============================================================*/
+create table t_goods
+(
+   fid                  varchar(100) not null,
+   fname                varchar(50),
+   fprice               int,
+   fstore_id            varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_goods_class                                         */
+/*==============================================================*/
+create table t_goods_class
+(
+   fid                  varchar(100) not null,
+   fgoods_id            varchar(100),
+   fsmall_class_id      varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_goods_evaluate                                      */
+/*==============================================================*/
+create table t_goods_evaluate
+(
+   fid                  varchar(100) not null,
+   fuser_id             varchar(100),
+   fgoods_id            varchar(100),
+   fdescribe            varchar(256),
+   fparent_id           varchar(100),
+   fcreate_time         bigint,
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_goods_evaluate_picture                              */
+/*==============================================================*/
+create table t_goods_evaluate_picture
+(
+   fid                  varchar(100) not null,
+   fgoods_evaluate_id   varchar(100),
+   fpicture             blob,
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_goods_order                                         */
+/*==============================================================*/
+create table t_goods_order
+(
+   fid                  varchar(100) not null,
+   fgoods_id            varchar(100),
+   forder_id            varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_goods_type                                          */
+/*==============================================================*/
+create table t_goods_type
+(
+   fid                  varchar(100) not null,
+   fprice               int,
+   fpicture             blob,
+   fgoods_id            varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_identify                                            */
+/*==============================================================*/
+create table t_identify
+(
+   fid                  varchar(100) not null,
+   fuser_id             varchar(100),
+   freal_name           varchar(20),
+   fid_card             varchar(50),
+   fid_card_postive     blob,
+   fid_card_negative    blob,
+   fidd_card_user       blob,
+   fcreate_time         bigint,
+   fstate               tinyint comment '0 未审核 1 通过 2 驳回',
+   fremark              varchar(256),
+   foperaterID          varchar(100),
+   foperaterTime        bigint,
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_order_head                                          */
+/*==============================================================*/
+create table t_order_head
+(
+   fid                  varchar(100) not null,
+   forder_num           varchar(100),
+   faddress             varchar(200),
+   fphone               varchar(20),
+   fpost_code           varchar(6),
+   fcreate_time         bigint,
+   faccount             varchar(50),
+   faccount_type        tinyint,
+   fbuyer_id            varchar(100),
+   fseller_id           varchar(100),
+   fstore_id            varchar(100),
+   ftotal_monty         bigint,
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_refund                                              */
+/*==============================================================*/
+create table t_refund
+(
+   fid                  varchar(100) not null,
+   fmoney               bigint,
+   fuser_id             varchar(100),
+   fstate               tinyint,
+   fapply_time          bigint,
+   ftransfer_time       bigint,
+   foperater_id         varchar(100),
+   freason              varchar(256),
+   forder_id            varchar(100),
+   forder_num           varchar(100),
+   fauth_time           bigint,
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_role                                                */
+/*==============================================================*/
+create table t_role
+(
+   fid                  varchar(100) not null,
+   fname                varchar(50),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_role_auth                                           */
+/*==============================================================*/
+create table t_role_auth
+(
+   fid                  varchar(100) not null,
+   frole_id             varchar(100),
+   fauth_id             varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_shopping_car                                        */
+/*==============================================================*/
+create table t_shopping_car
+(
+   fid                  varchar(100) not null,
+   fuser_id             varchar(100),
+   fgoods_id            varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_small_class                                         */
+/*==============================================================*/
+create table t_small_class
+(
+   fid                  varchar(100) not null,
+   fname                varchar(20),
+   fbig_class_id        varchar(100),
+   fstore_id            varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_store                                               */
+/*==============================================================*/
+create table t_store
+(
+   fid                  varchar(100) not null,
+   fname                varchar(20),
+   fdescribe            varchar(256),
+   fuser_id             varchar(100),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_user                                                */
+/*==============================================================*/
+create table t_user
+(
+   fid                  varchar(100) not null,
+   fname                varchar(100),
+   fsex                 bit,
+   fage                 int,
+   frole_id             varchar(100),
+   fpwd                 varchar(22),
+   primary key (fid)
+);
+
+/*==============================================================*/
+/* Table: t_user_login_log                                      */
+/*==============================================================*/
+create table t_user_login_log
+(
+   fid                  varchar(100) not null,
+   fuser_id             varchar(100),
+   flogin_token         varchar(100),
+   flogin_time          bigint,
+   flogout_time         bigint,
+   primary key (fid)
+);

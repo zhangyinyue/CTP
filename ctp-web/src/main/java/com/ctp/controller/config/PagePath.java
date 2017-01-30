@@ -12,7 +12,7 @@ public enum PagePath {
 	/**
 	 * 用户列表界面
 	 */
-	USER_LIST("user/userList"),
+	USER_LIST("user/user"),
 	/**
 	 * 用户列表界面
 	 */
