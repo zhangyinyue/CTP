@@ -1,3 +1,6 @@
+drop database ctp;
+create database ctp;
+
 drop table if exists t_account;
 
 drop table if exists t_address;
@@ -300,3 +303,18 @@ create table t_user_login_log
    flogout_time         bigint,
    primary key (fid)
 );
+
+/*增加超级管理员用户*/
+INSERT INTO `ctp`.`t_user` (`fid`, `fname`, `fsex`, `fage`, `frole_id`, `fpwd`) VALUES ('1', '超级管理员', b'1', '1', '1', '123');
+/*增加基础权限项*/
+INSERT INTO `ctp`.`t_auth` (`fid`, `fparent_id`, `fname`, `furl`, `forderby`, `ficon`) VALUES ('1', NULL, '权限管理', '', 'a', NULL);
+INSERT INTO `ctp`.`t_auth` (`fid`, `fparent_id`, `fname`, `furl`, `forderby`, `ficon`) VALUES ('2', '1', '权限列表', 'adminAuth/auth/listPage', 'aa', NULL);
+INSERT INTO `ctp`.`t_auth` (`fid`, `fparent_id`, `fname`, `furl`, `forderby`, `ficon`) VALUES ('3', '1', '角色管理', 'adminAuth/role/listPage', 'ab', NULL);
+INSERT INTO `ctp`.`t_auth` (`fid`, `fparent_id`, `fname`, `furl`, `forderby`, `ficon`) VALUES ('4028838159ee65990159ee708f910006', '', '用户管理', '', 'b', 'icon-user');
+INSERT INTO `ctp`.`t_auth` (`fid`, `fparent_id`, `fname`, `furl`, `forderby`, `ficon`) VALUES ('4028838159ee65990159ee71a6e4000b', '4028838159ee65990159ee708f910006', '用户列表', 'adminUser/user/listPage', 'ba', 'icon-user');
+/*增加角色*/
+INSERT INTO `ctp`.`t_role` (`fid`, `fname`) VALUES ('1', '超级管理员');
+/*增加角色权限项关系*/
+INSERT INTO `ctp`.`t_role_auth` (`fid`, `frole_id`, `fauth_id`) VALUES ('4028838159ee65990159ee6efbd30000', '1', '1');
+INSERT INTO `ctp`.`t_role_auth` (`fid`, `frole_id`, `fauth_id`) VALUES ('4028838159ee65990159ee6efbe80001', '1', '2');
+INSERT INTO `ctp`.`t_role_auth` (`fid`, `frole_id`, `fauth_id`) VALUES ('3', '1', '3');
