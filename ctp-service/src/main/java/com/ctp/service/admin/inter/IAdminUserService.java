@@ -22,14 +22,13 @@ public interface IAdminUserService {
 
 	/**
 	 * 通用用户id获取二层树形结构的权限树，并保存在到session中
-	 * @param id
+	 * @param user
 	 * @return
 	 */
 	AuthTreeVO getAuthTreeByUser(TUser user);
 	/**
 	 * 用户登陆服务类，并把用户对象保存到session中
 	 * @param user
-	 * @param request
 	 * @return LoginInfo的信息
 	 */
 	String login(TUser user);

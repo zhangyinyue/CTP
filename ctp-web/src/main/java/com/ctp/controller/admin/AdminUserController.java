@@ -44,7 +44,6 @@ public class AdminUserController {
 	private IAdminUserService adminUserService;
 	/**
 	 * 跳转到登陆界面
-	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value=ControllerName.ADMIN_TOLOGIN,method=RequestMethod.GET)
@@ -57,7 +56,6 @@ public class AdminUserController {
 	/**
 	 * 登陆操作
 	 * @param user
-	 * @param request
 	 * @param response
 	 */
 	@RequestMapping(value=ControllerName.ADMIN_LOGIN,method=RequestMethod.POST)
@@ -74,9 +72,6 @@ public class AdminUserController {
 	
 	/**
 	 * 登出操作
-	 * @param user
-	 * @param request
-	 * @param response
 	 */
 	@RequestMapping(value=ControllerName.ADMIN_LOGOUT,method=RequestMethod.GET)
 	public String logout(){
@@ -88,7 +83,6 @@ public class AdminUserController {
 	
 	/**
 	 * 跳转到首页
-	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value=ControllerName.ADMIN_HOME,method=RequestMethod.GET)
@@ -101,19 +95,19 @@ public class AdminUserController {
 		URequest.setSession(request, "cid", null);
 		URequest.setSession(request, "pname", null);
 		URequest.setSession(request, "cname", null);
-		return PagePath.USER_LIST.toString();
+		return PagePath.HOME.toString();
 	}
 	
 	
 	/**
-	 * 跳转到角色列表
+	 * 跳转到用户列表
 	 * @param request
 	 * @param response
-	 * @param role
+	 * @param user
 	 * @return
 	 */
 	@RequestMapping(value=ControllerName.ADMIN_USER_LIST,method={RequestMethod.GET,RequestMethod.POST})
-	public String toRolePage(HttpServletRequest request,HttpServletResponse response,UserVO user){
+	public String toUserPage(HttpServletRequest request,HttpServletResponse response,UserVO user){
 		ListPage listPage = adminUserService.queryUserByPage(user);
 		request.setAttribute("listPage", listPage);
 		request.setAttribute("user",user);
@@ -122,25 +116,26 @@ public class AdminUserController {
 	
 	
 	/**
-	 * 角色编辑界面
-	 * @param role
+	 * 用户编辑界面
+	 * @param user
 	 * @return
 	 */
 	@RequestMapping(value=ControllerName.ADMIN_USER_EDIT,method=RequestMethod.POST)
-	public String toRoleEditPage(UserVO user){
+	public String toUserEditPage(UserVO user){
 		HttpServletRequest request = ContextUtils.getRequest();
 		TUser tuser = adminUserService.getUser(user.getId());
+		tuser = tuser == null ? tuser = new TUser() : tuser;
 		request.setAttribute("user",tuser);
 		return PagePath.USER_EDIT.toString();
 	}
 	
 	
 	/**
-	 * 保存角色
-	 * @param role
+	 * 保存用户
+	 * @param user
 	 */
 	@RequestMapping(value=ControllerName.ADMIN_USER_SAVE,method=RequestMethod.POST)
-	public void toRoleSave(TUser user,HttpServletResponse response){
+	public void toUserSave(TUser user,HttpServletResponse response){
 		if(StringUtils.isEmpty(user.getFname())){
 			logger.error("用户名不能为空！");
 			UResponse.writeFail(response, ControllerReturnMsg.NAME_NOT_NULL.toString());
@@ -155,11 +150,11 @@ public class AdminUserController {
 		}
 	}
 	/**
-	 * 删除角色
-	 * @param role
+	 * 删除用户
+	 * @param user
 	 */
 	@RequestMapping(value=ControllerName.ADMIN_USER_DEL,method=RequestMethod.POST)
-	public void toRoleDelete(UserVO user,HttpServletResponse response){
+	public void toUserDelete(UserVO user,HttpServletResponse response){
 		try{
 			user.setIdsStr(user.getIdsStr().replace("[", "").replace("]", "").replace("\"", "'"));
 			adminUserService.deleteUser(user);

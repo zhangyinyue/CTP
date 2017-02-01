@@ -8,7 +8,7 @@
 		<%@include file="../common/sidebar.jsp" %>
 		<div class="page-content">
 			<%@include file="../common/pageHeader.jsp" %>
-			<!-- 内容开始 --> 	
+			<!-- 内容开始 -->
 			zhang
 			<!-- 内容结束 --> 		 
 		</div> 

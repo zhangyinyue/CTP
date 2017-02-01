@@ -10,9 +10,13 @@ public enum PagePath {
 	 */
 	LOGIN("login"),
 	/**
+	 * 登陆界面
+	 */
+	HOME("user/home"),
+	/**
 	 * 用户列表界面
 	 */
-	USER_LIST("user/user"),
+	USER_LIST("user/userList"),
 	/**
 	 * 用户列表界面
 	 */
