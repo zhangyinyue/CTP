@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ctp.service.admin.inter.IAdminAuthService;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,10 @@ public class AdminUserController {
 	private Logger logger = Logger.getLogger(AdminUserController.class);
 	
 	@Resource(name=ServiceName.ADMIN_USER)
-	private IAdminUserService adminUserService;
+    private IAdminUserService adminUserService;
+
+    @Resource(name=ServiceName.ADMIN_AUTH)
+    private IAdminAuthService adminAuthService;
 	/**
 	 * 跳转到登陆界面
 	 * @return
@@ -113,7 +117,21 @@ public class AdminUserController {
 		request.setAttribute("user",user);
 		return PagePath.USER_LIST.toString();
 	}
-	
+
+    /**
+     * 跳转到角色列表
+     * @param request
+     * @param response
+     * @param role
+     * @return
+     */
+    @RequestMapping(value=ControllerName.ADMIN_ROLE_LIST,method={RequestMethod.GET,RequestMethod.POST})
+    public String toRolePage(HttpServletRequest request,HttpServletResponse response,RoleVO role){
+        ListPage listPage = adminAuthService.queryRoleByPage(role);
+        request.setAttribute("listPage", listPage);
+        request.setAttribute("role",role);
+        return PagePath.ROLE_SELECT_LIST.toString();
+    }
 	
 	/**
 	 * 用户编辑界面

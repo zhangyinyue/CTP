@@ -75,7 +75,7 @@ create table t_auth
    fparent_id           varchar(100),
    fname                varchar(20),
    furl                 varchar(100),
-   forderby             int,
+   forderby             varchar(10),
    ficon                varchar(30),
    primary key (fid)
 );

@@ -26,6 +26,10 @@ public enum PagePath {
 	 */
 	ROLE_LIST("role/roleList"),
 	/**
+	 * 角色列表界面
+	 */
+	ROLE_SELECT_LIST("role/roleSelectList"),
+	/**
 	 * 角色权限编辑界面
 	 */
 	ROLE_AUTH_EDIT("role/roleEdit"),

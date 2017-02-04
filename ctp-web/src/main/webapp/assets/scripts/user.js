@@ -135,12 +135,12 @@ var User = function(){
                 layer.open({
                     type: 2,
                     //skin: 'layui-layer-lan',
-                    title: '角色列表',
+                    title: '用户列表',
                     fix: false,
                     shadeClose: true,
                     maxmin: false,
                     area: ['1000px', '500px'],
-                    content: '../../adminAuth/auth/listParentPage',
+                    content: '../../adminUser/user/listParentPage',
                 });
             });
 			handleValidation();
