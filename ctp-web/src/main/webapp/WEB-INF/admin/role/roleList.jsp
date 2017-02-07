@@ -14,7 +14,7 @@
 					<!-- BEGIN EXAMPLE TABLE PORTLET-->
 					<div class="portlet box blue">
 						<div class="portlet-title">
-							<div class="caption"><i class="icon-globe"></i>角色列表</div>
+							<div class="caption"><i class="icon-globe"></i>角色test列表</div>
 							<div class="actions">
 								<a href="javascript:Role.dataOperation('');" class="btn red"><i class="icon-pencil"></i>新增<i class="icon-plus"></i></a>
 								<button id="del" class="btn red">删除<i class="icon-minus"></i></button>
