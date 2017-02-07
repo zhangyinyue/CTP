@@ -95,7 +95,7 @@
 	<script src="${basePath }assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
 	<!-- END CORE PLUGINS -->
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
-	<script src="${basePath }assets/plugins/jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="${basePath }assets/plugins/jquery-validation/dist/jquery.validate.js" type="text/javascript"></script>
 	<script src="${basePath }assets/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="${basePath }assets/plugins/select2/select2.min.js"></script>
 	<script type="text/javascript" src="${basePath }assets/plugins/gritter/js/jquery.gritter.js"></script>
