@@ -19,32 +19,7 @@
 		<module>../ctp-web</module>
 		<module>../ctp-core</module>
 	</modules>
-	
-	  <!-- 配置私服工厂 --> 
-  <repositories>
-        <repository>
-            <id>nexus</id>
-            <url>http://127.0.0.1:8088/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-  </repositories>      
-   <pluginRepositories>
-        <pluginRepository>
-            <id>nexus</id>
-            <url>http://127.0.0.1:8088/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-           </snapshots>
-        </pluginRepository>
-  </pluginRepositories>
+
    <!-- 配置发布到私服-->
    <distributionManagement>
         <repository>
