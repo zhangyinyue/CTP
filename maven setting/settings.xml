@@ -41,7 +41,7 @@ under the License.
  | The sections in this sample file are intended to give you a running start at
  | getting the most out of your Maven installation. Where appropriate, the default
  | values (values used when the setting is not specified) are provided.
- | 用于测试jenkins的构建
+ |
  |-->
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -171,14 +171,14 @@ under the License.
       <url>http://my.repository.com/repo/path</url>
     </mirror>
      -->
-   
+    <!-- mirror
     <mirror>
         <id>nexus-aliyun</id>
         <mirrorOf>*</mirrorOf>
         <name>Nexus aliyun</name>
         <url>http://maven.aliyun.com/nexus/content/groups/public</url>
     </mirror> 
-    
+     -->
   </mirrors>
   <!-- profiles
    | This is a list of profiles which can be activated in a variety of ways, and which can modify
@@ -231,7 +231,35 @@ under the License.
       </repositories>
     </profile>
     -->
-
+	 <profile>
+	 <id>nexus</id>
+<!-- 配置私服工厂 -->
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<url>http://127.0.0.1:8088/repository/nexus-aliyun/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	 <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <url>http://127.0.0.1:8088/repository/nexus-aliyun/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+           </snapshots>
+        </pluginRepository>
+  </pluginRepositories>
+ 
+	 </profile>
     <!--
      | Here is another profile, activated by the system property 'target-env' with a value of 'dev',
      | which provides a specific path to the Tomcat instance. To use this, your plugin configuration
@@ -278,5 +306,7 @@ under the License.
     <activeProfile>anotherAlwaysActiveProfile</activeProfile>
   </activeProfiles>
   -->
-  
+   <activeProfiles>
+       <activeProfile>nexus</activeProfile>
+   </activeProfiles>
 </settings>
