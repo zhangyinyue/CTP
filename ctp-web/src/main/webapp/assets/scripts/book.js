@@ -1,4 +1,4 @@
-var User = function(){
+var Book = function(){
 	function handleValidation(){
 		var form1 = $('#form_sample_1');
         var error1 = $('.alert-error', form1);
@@ -63,16 +63,7 @@ var User = function(){
         });
 	};
 	
-	function selectState(){
-		var index = parent.layer.getFrameIndex(window.name);
-		$(".selectState").click(function(){
-			$id = $(this).attr("data-set");
-			$valName = $(this).attr("data-val");
-			parent.$('#selectParent').val($valName);
-			parent.$('#selectParentId').val($id);
-			parent.layer.close(index);
-		}); 
-	}; 
+
 	
 	return { 
 		init : function(){
@@ -140,19 +131,15 @@ var User = function(){
                     shadeClose: true,
                     maxmin: false,
                     area: ['1000px', '500px'],
-                    content: '../../adminUser/role/listPage',
+                    content: '../../adminAuth/auth/listParentPage',
                 });
             });
 			handleValidation();
 		},
 		
 		dataOperation : function(id){
-			$("#queryForm").attr("action",$basePath + "adminUser/user/editPage?id="+id);
+			$("#queryForm").attr("action",$basePath + "adminBook/book/editPage?id="+id);
 			$("#queryForm").submit();
-		},
-		
-		selectState:function(){
-			selectState();
 		}
 	}
 }();

@@ -11,6 +11,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ctp.model.po.TRole;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -59,7 +60,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 		for(int i = 0; i < auths.size(); i++){
 			TAuth auth = auths.get(i);
 			//以父节点id做为key
-			String key = auth.getFparentID() == null ? auth.getFid().toString() : auth.getFparentID();
+			String key = (auth.getFparentID() == null || "".equals(auth.getFparentID()))? auth.getFid().toString() : auth.getFparentID();
 			List<TAuth> tree = tempMap.get(key);
 			if(tree == null){
 				tree = new ArrayList<TAuth>();
@@ -179,7 +180,10 @@ public class AdminUserServiceImpl implements IAdminUserService {
 
 	@Override
 	public TUser getUser(String userId) {
-		return userDao.getUser(userId);
+		TUser user =  userDao.getUser(userId);
+		TRole role = authDao.getRole(user.getFroleID());
+		user.setRoleName(role == null ? "":role.getFname());
+		return user;
 	}
 
 	

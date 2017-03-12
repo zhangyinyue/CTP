@@ -43,6 +43,12 @@
 									</div>
 								</div>
 								<div class="control-group">
+									<label class="control-label">用户密码<span class="required">*</span></label>
+									<div class="controls">
+										<input type="text" name="fpwd" value="${user.fpwd }" data-required="1" class="span6 m-wrap">
+									</div>
+								</div>
+								<div class="control-group">
 									<label class="control-label">性别</label>
 									<div class="controls">
 										<select name="fsex">
@@ -61,7 +67,7 @@
 									<label class="control-label">角色</label>
 									<div class="controls">
 										<input type="hidden" id="selectParentId" value="${user.froleID }" name="froleID"   >
-										<%--<input type="text" id="selectParent" value="${auth.parentName }"  readonly="readonly" name="parentName"  class="span6 m-wrap " >--%>
+										<input type="text" id="selectParent" value="${user.roleName }"  readonly="readonly" name="roleName"  class="span6 m-wrap " >
 										<input id="btntext" type="button" value="浏览..." class="btn blue" />
 									</div>
 								</div>

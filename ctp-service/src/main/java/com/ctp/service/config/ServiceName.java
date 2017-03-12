@@ -9,8 +9,8 @@ public interface ServiceName {
 	//=========================admin==========================
 	public final static String ADMIN_AUTH = "adminAuthService";
 	public final static String ADMIN_USER = "adminUserService";
-	
-	
+	String ADMIN_BOOK = "adminBookService";
+
 	//=========================app==========================
 	
 	

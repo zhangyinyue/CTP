@@ -14,7 +14,7 @@ import com.ctp.model.vo.PageParam;
 public interface IUserDao {
 	/**
 	 * 通过用户名获取用户信息
-	 * @param id
+	 * @param fname
 	 * @return
 	 */
 	TUser getUserByName(String fname);
