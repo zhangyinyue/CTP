@@ -61,6 +61,8 @@
 	<!-- END CONTAINER -->
 	<%@include file="../common/footer.jsp" %>
 	<!-- 引入模块JS -->
+	<script src="${basePath }assets/plugins/jquery.form.js" type="text/javascript"></script>
+	<script src="${basePath }assets/plugins/jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
 	<script src="${basePath }assets/scripts/book.js" type="text/javascript"></script>
 	<script> 
 		jQuery(document).ready(function() {  

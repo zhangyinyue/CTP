@@ -91,7 +91,7 @@ var Book = function(){
             	if(ids.length < 1) return ;
             	swal({   
             		title: "Are you sure?",   
-            		text: "确认删除选中的用户信息?",
+            		text: "确认删除选中的书籍信息?",
             		type: "warning",   
             		showCancelButton: true,   
             		confirmButtonColor: "#DD6B55",   
@@ -99,7 +99,7 @@ var Book = function(){
             		cancelButtonText : "取消",
             		closeOnConfirm: false 
             		}, function(){   
-            			$.post($basePath + "adminUser/user/deletion",{idsStr:JSON.stringify(ids)},function(data){
+            			$.post($basePath + "adminBook/book/deletion",{idsStr:JSON.stringify(ids)},function(data){
             				if(!data.success){
             					swal("Error!", data.data, "error");
             				}else{

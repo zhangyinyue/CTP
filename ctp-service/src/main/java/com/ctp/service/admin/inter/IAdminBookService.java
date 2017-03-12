@@ -22,4 +22,11 @@ public interface IAdminBookService {
      */
     TBook getBook(String bookId);
 
+    /**
+     * 保存书籍
+     * @param book
+     */
+    void saveBook(TBook book);
+
+    String deleteBook(BookVO book);
 }

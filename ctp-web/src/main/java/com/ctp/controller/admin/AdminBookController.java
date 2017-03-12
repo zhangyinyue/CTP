@@ -1,6 +1,7 @@
 package com.ctp.controller.admin;
 
 import com.ctp.controller.config.ControllerName;
+import com.ctp.controller.config.ControllerReturnMsg;
 import com.ctp.controller.config.PagePath;
 import com.ctp.dao.base.impl.ListPage;
 import com.ctp.model.po.TBook;
@@ -10,6 +11,8 @@ import com.ctp.model.vo.UserVO;
 import com.ctp.service.admin.inter.IAdminBookService;
 import com.ctp.service.config.ServiceName;
 import com.ctp.utils.ContextUtils;
+import com.ctp.utils.StringUtils;
+import com.ctp.utils.UResponse;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,4 +61,39 @@ public class AdminBookController {
         request.setAttribute("book",tBook);
         return PagePath.BOOK_EDIT.toString();
     }
+    /**
+     * 保存用户
+     * @param book
+     */
+    @RequestMapping(value=ControllerName.ADMIN_BOOK_SAVE,method=RequestMethod.POST)
+    public void toBookSave(TBook book,HttpServletResponse response){
+        if(StringUtils.isEmpty(book.getFname())){
+            logger.error("书名不能为空！");
+            UResponse.writeFail(response, ControllerReturnMsg.NAME_NOT_NULL.toString());
+            return;
+        }
+        try{
+            adminBookService.saveBook(book);
+            UResponse.writeSuccess(response, ControllerReturnMsg.OPERATOR_SUCCESS.toString());
+        }catch(Exception e){
+            logger.error(e.getMessage());
+            UResponse.writeFail(response,  ControllerReturnMsg.EXCEPTION_ERROR.toString());
+        }
+    }
+    /**
+     * 删除书籍
+     * @param book
+     */
+    @RequestMapping(value=ControllerName.ADMIN_BOOK_DEL,method=RequestMethod.POST)
+    public void toUserDelete(BookVO book,HttpServletResponse response){
+        try{
+            book.setIdsStr(book.getIdsStr().replace("[", "").replace("]", "").replace("\"", "'"));
+            adminBookService.deleteBook(book);
+            UResponse.writeSuccess(response, ControllerReturnMsg.DELETE_SUCCESS.toString());
+        }catch(Exception e){
+            logger.error(e.getMessage());
+            UResponse.writeFail(response,  ControllerReturnMsg.EXCEPTION_ERROR.toString());
+        }
+    }
+
 }

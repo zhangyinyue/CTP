@@ -8,6 +8,7 @@ import com.ctp.model.po.TUser;
 import com.ctp.model.vo.BookVO;
 import com.ctp.model.vo.PageParam;
 import com.ctp.service.admin.inter.IAdminBookService;
+import com.ctp.service.config.ReturnMsg;
 import com.ctp.service.config.ServiceName;
 import com.ctp.utils.StringUtils;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,22 @@ public class AdminBookServiceImpl implements IAdminBookService{
     @Override
     public TBook getBook(String bookId) {
         return bookDao.getBook(bookId);
+    }
+
+    @Override
+    public void saveBook(TBook book) {
+        if(StringUtils.isEmpty(book.getFid())){
+            bookDao.saveBook(book);
+        }else{
+            bookDao.update(book);
+        }
+
+    }
+
+    @Override
+    public String deleteBook(BookVO book) {
+        String delBook = " DELETE TBook b where b.fid in ( "+ book.getIdsStr()+" )";
+        bookDao.deleteBook(delBook, null);
+        return ReturnMsg.DEL_SUCCESS.toString();
     }
 }

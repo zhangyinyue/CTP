@@ -29,4 +29,19 @@ public class BookDaoImpl implements IBookDao{
     public TBook getBook(String bookId) {
         return baseDao.get(TBook.class, bookId);
     }
+
+    @Override
+    public void saveBook(TBook book) {
+        baseDao.save(book);
+    }
+
+    @Override
+    public void update(TBook book) {
+        baseDao.update(book);
+    }
+
+    @Override
+    public void deleteBook(String delBook,String bookId) {
+        baseDao.deleteByHql(delBook, bookId);
+    }
 }

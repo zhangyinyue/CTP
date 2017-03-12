@@ -22,4 +22,18 @@ public interface IBookDao {
      * @return
      */
     TBook getBook(String bookId);
+
+    /**
+     * 保存书籍
+     * @param book
+     */
+    void saveBook(TBook book);
+
+    /**
+     * 更新书籍信息
+     * @param book
+     */
+    void update(TBook book);
+
+    void deleteBook(String delBook,String bookId);
 }
