@@ -5,9 +5,7 @@ import com.ctp.controller.config.ControllerReturnMsg;
 import com.ctp.controller.config.PagePath;
 import com.ctp.dao.base.impl.ListPage;
 import com.ctp.model.po.TBook;
-import com.ctp.model.po.TUser;
 import com.ctp.model.vo.BookVO;
-import com.ctp.model.vo.UserVO;
 import com.ctp.service.admin.inter.IAdminBookService;
 import com.ctp.service.config.ServiceName;
 import com.ctp.utils.ContextUtils;
@@ -19,8 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by zyy on 2017/3/12 0012.
@@ -54,15 +60,43 @@ public class AdminBookController {
      * @return
      */
     @RequestMapping(value=ControllerName.ADMIN_BOOK_EDIT,method=RequestMethod.POST)
-    public String toBookEditPage(BookVO book){
+    public String toBookEditPage(BookVO book,HttpServletResponse response){
         HttpServletRequest request = ContextUtils.getRequest();
         TBook tBook = adminBookService.getBook(book.getId());
+        if(tBook != null){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            tBook.setFpublishyearstr(sdf.format(tBook.getFpublishyear()*1000));
+        }
         tBook = tBook == null ? tBook = new TBook() : tBook;
         request.setAttribute("book",tBook);
         return PagePath.BOOK_EDIT.toString();
     }
+    @RequestMapping(value=ControllerName.ADMIN_BOOK_VIEW_IMAGE,method=RequestMethod.GET)
+    public void viewPic(String bookId, HttpServletResponse response) throws IOException {
+        TBook book = adminBookService.getBook(bookId);
+        byte[] datas = book.getFimage();
+        InputStream buffin = new ByteArrayInputStream(datas);// 业务逻辑取得图片的byte[]
+        OutputStream sos = response.getOutputStream();
+        try {
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setDateHeader("Expires", 0);
+            response.setContentType("image/jpeg");
+            int len;
+            byte[] buf = new byte[1024];
+            while ((len = buffin.read(buf, 0, 1024)) != -1) {
+                sos.write(buf, 0, len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            buffin.close();
+            sos.close();
+        }
+
+    }
     /**
-     * 保存用户
+     * 保存书籍
      * @param book
      */
     @RequestMapping(value=ControllerName.ADMIN_BOOK_SAVE,method=RequestMethod.POST)
@@ -80,6 +114,9 @@ public class AdminBookController {
             UResponse.writeFail(response,  ControllerReturnMsg.EXCEPTION_ERROR.toString());
         }
     }
+
+
+
     /**
      * 删除书籍
      * @param book

@@ -14,16 +14,11 @@ var Book = function(){
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
-            	cityName: {
-                    maxlength: 16,
+                imagefile: {
                     required: true
                 },
-                cityLetter : {
-                	maxlength:1,
+                file : {
                 	required: true
-                },
-                hot: {
-                    required: true
                 }
             },
 

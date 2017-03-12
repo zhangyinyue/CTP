@@ -77,11 +77,11 @@
 	</mvc:interceptors> 
 
 	<!-- 配置静态目录 -->
-	<mvc:resources location="/statics/" mapping="/statics/**" />
+	<!--<mvc:resources location="/statics/" mapping="/statics/**" />-->
 	<mvc:resources location="/assets/" mapping="/assets/**" />
 	
 	<!-- 文件上传配置 -->
-	<!-- <bean id="multipartResolver"
+	 <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="maxUploadSize">
@@ -90,6 +90,6 @@
 		<property name="maxInMemorySize">
 			<value>10960</value>
 		</property>
-	</bean> -->
+	</bean>
 
 </beans>

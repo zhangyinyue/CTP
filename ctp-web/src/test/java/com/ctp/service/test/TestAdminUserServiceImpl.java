@@ -31,17 +31,17 @@ public class TestAdminUserServiceImpl {
 	
 	@Test
 	public void testGetAuthTreeByUser(){
-		TUser user = new TUser();
+		/*TUser user = new TUser();
 		user.setFroleID("1");
 		AuthTreeVO authTreeVO = adminUserService.getAuthTreeByUser(user);
 		for(int i = 0; i < authTreeVO.size(); i++){
 			logger.info(authTreeVO.getNode(i));
-		}
+		}*/
 	}
 	
 	@Test
 	public void testLogin(){
-		TUser user = new TUser();
+		/*TUser user = new TUser();
 		String result = adminUserService.login(user);
 		logger.info(result);
 		
@@ -62,7 +62,7 @@ public class TestAdminUserServiceImpl {
 		user.setFname("1");
 		user.setFpwd("123");
 		 result = adminUserService.login(user);
-		logger.info(result);
+		logger.info(result);*/
 	}
 	
 }

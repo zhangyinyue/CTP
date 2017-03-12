@@ -14,6 +14,9 @@ import com.ctp.utils.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +62,21 @@ public class AdminBookServiceImpl implements IAdminBookService{
 
     @Override
     public void saveBook(TBook book) {
+        String year = book.getFpublishyearstr();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        try {
+            book.setFpublishyear(sdf.parse(year).getTime()/1000);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(book.getImagefile() != null){
+            book.setFimage(book.getImagefile().getBytes());
+        }
+        if(book.getFile() != null){
+            book.setFcontent(book.getFile().getBytes());
+        }
         if(StringUtils.isEmpty(book.getFid())){
+            book.setFcreatedate(new Date().getTime()/1000);
             bookDao.saveBook(book);
         }else{
             bookDao.update(book);

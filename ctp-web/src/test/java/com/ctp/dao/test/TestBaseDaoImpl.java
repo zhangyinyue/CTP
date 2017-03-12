@@ -36,12 +36,12 @@ public class TestBaseDaoImpl extends AbstractTransactionalJUnit4SpringContextTes
 	
 	@Test
 	public void testSave() {
-		TUser user = new TUser();
+		/*TUser user = new TUser();
 		user.setFname("zhang");
 		user.setFage(1);
 		user.setFpwd("123");
 		byte sex = 1;
 		user.setFsex(sex);
-		baseDao.save(user);
+		baseDao.save(user);*/
 	}
 }

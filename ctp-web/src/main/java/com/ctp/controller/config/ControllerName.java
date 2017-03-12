@@ -34,5 +34,6 @@ public interface ControllerName {
 	String ADMIN_BOOK_EDIT = "/book/editPage";	//书籍编辑界面
 	String ADMIN_BOOK_SAVE = "/book/safety";	//书籍保存操作
 	String ADMIN_BOOK_DEL = "/book/deletion";	//书籍删除操作
-
+	String ADMIN_BOOK_VIEW_IMAGE = "/book/image";
+	String ADMIN_BOOK_VIEW_FILE = "/book/file";
 }

@@ -1,11 +1,9 @@
 package com.ctp.model.po;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -19,12 +17,53 @@ public class TBook {
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String fid;
     private String fname;
+    @Column(name="fimage", columnDefinition="BLOB", nullable=true)
     private byte[] fimage;
+    @Column(name="fcontent", columnDefinition="BLOB", nullable=true)
+    private byte[] fcontent;
+    @Transient
+    private CommonsMultipartFile imagefile;
+    @Transient
+    private CommonsMultipartFile file;
     private  String fauthor;
     private String fpublish;
     private long fpublishyear;
+    @Transient
+    private String fpublishyearstr;
     private BigDecimal fscore;
     private long fcreatedate;
+
+    public byte[] getFcontent() {
+        return fcontent;
+    }
+
+    public void setFcontent(byte[] fcontent) {
+        this.fcontent = fcontent;
+    }
+
+    public CommonsMultipartFile getImagefile() {
+        return imagefile;
+    }
+
+    public void setImagefile(CommonsMultipartFile imagefile) {
+        this.imagefile = imagefile;
+    }
+
+    public CommonsMultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(CommonsMultipartFile file) {
+        this.file = file;
+    }
+
+    public String getFpublishyearstr() {
+        return fpublishyearstr;
+    }
+
+    public void setFpublishyearstr(String fpublishyearstr) {
+        this.fpublishyearstr = fpublishyearstr;
+    }
 
     public void setFcreatedate(long fcreatedate) {
         this.fcreatedate = fcreatedate;
