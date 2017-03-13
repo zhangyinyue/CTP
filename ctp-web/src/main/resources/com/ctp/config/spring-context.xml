@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
 	<!-- 注解扫描 -->
-	<context:component-scan base-package="com.ctp.controller.admin">
+	<context:component-scan base-package="com.ctp.controller">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" /><!-- 指定扫描@Controller注解 -->
 	</context:component-scan>
@@ -49,7 +49,7 @@
 	<!-- jsp页面解析器，当Controller返回XXX字符串时，先通过拦截器，然后该类就会在/WEB-INF/views/目录下，查找XXX.jsp文件 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/admin/"></property>
+		<property name="prefix" value="/WEB-INF/"></property>
 		<property name="suffix" value=".jsp"></property>
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />

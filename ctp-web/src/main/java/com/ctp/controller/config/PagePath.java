@@ -8,48 +8,49 @@ public enum PagePath {
 	/**
 	 * 登陆界面
 	 */
-	LOGIN("login"),
+	LOGIN("admin/login"),
 	/**
 	 * 登陆界面
 	 */
-	HOME("user/home"),
+	HOME("admin/user/home"),
 	/**
 	 * 用户列表界面
 	 */
-	USER_LIST("user/userList"),
+	USER_LIST("admin/user/userList"),
 	/**
 	 * 用户编辑界面
 	 */
-	USER_EDIT("user/userEdit"),
+	USER_EDIT("admin/user/userEdit"),
 	/**
 	 * 角色列表界面
 	 */
-	ROLE_LIST("role/roleList"),
-	USER_ROLE_LIST("user/roleList"),
+	ROLE_LIST("admin/role/roleList"),
+	USER_ROLE_LIST("admin/user/roleList"),
 	/**
 	 * 角色权限编辑界面
 	 */
-	ROLE_AUTH_EDIT("role/roleEdit"),
+	ROLE_AUTH_EDIT("admin/role/roleEdit"),
 	/**
 	 * 权限项列表界面
 	 */
-	AUTH_LISE("auth/authList"),
+	AUTH_LISE("admin/auth/authList"),
 	/**
 	 * 父权限项列表界面
 	 */
-	AUTH_PARENT_LISE("auth/authParentList"),
+	AUTH_PARENT_LISE("admin/auth/authParentList"),
 	/**
 	 * 权限项编辑界面
 	 */
-	AUTH_EDIT("auth/authEdit"),
+	AUTH_EDIT("admin/auth/authEdit"),
 	/**
 	 * 书籍列表
 	 */
-    BOOK_LIST("book/bookList"),
+    BOOK_LIST("admin/book/bookList"),
     /**
      * 书籍编辑界面
      */
-    BOOK_EDIT("book/bookEdit"),
+    BOOK_EDIT("admin/book/bookEdit"),
+	APP_BOOK_LIST("app/home"),
 	;
 	
 	private String strVal;

@@ -36,4 +36,7 @@ public interface ControllerName {
 	String ADMIN_BOOK_DEL = "/book/deletion";	//书籍删除操作
 	String ADMIN_BOOK_VIEW_IMAGE = "/book/image";
 	String ADMIN_BOOK_VIEW_FILE = "/book/file";
+
+	String APP_BOOK = "appBook";
+	String APP_BOOK_LIST = "/book/list";
 }
