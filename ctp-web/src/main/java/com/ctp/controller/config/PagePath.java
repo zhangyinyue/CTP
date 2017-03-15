@@ -50,7 +50,10 @@ public enum PagePath {
      * 书籍编辑界面
      */
     BOOK_EDIT("admin/book/bookEdit"),
+
 	APP_BOOK_LIST("app/home"),
+    APP_MYY_BOOKS("app/mybooks"),
+    APP_SUBPAGE("app/subpage"),
 	;
 	
 	private String strVal;

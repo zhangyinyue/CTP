@@ -36,8 +36,8 @@ public class AdminBookServiceImpl implements IAdminBookService{
         StringBuilder count = new StringBuilder();
         Map<String, Object> params = new HashMap<>();
 
-        query.append("SELECT b FROM TBook b WHERE 1=1");
-        count.append("SELECT COUNT(b.fid) FROM TBook b WHERE 1=1");
+        query.append("SELECT b FROM TBook b WHERE 1=1 ");
+        count.append("SELECT COUNT(b.fid) FROM TBook b WHERE 1=1 ");
 
         if(!StringUtils.isEmpty(book.getName())){
             String filter = " AND b.fname LIKE :name ";
@@ -45,7 +45,9 @@ public class AdminBookServiceImpl implements IAdminBookService{
             count.append(filter);
             params.put("name", "%" + book.getName() + "%");
         }
-
+        if(book.isSort()) {
+            query.append("  ORDER BY b.fcreatedate desc ");
+        }
         page.setPageNo(book.getPageNo());
         page.setPageSize(book.getPageSize());
         page.setQuery(query.toString());

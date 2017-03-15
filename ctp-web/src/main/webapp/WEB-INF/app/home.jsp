@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.ctp.utils.URequest"%>
+<%@taglib prefix="fns" uri="/WEB-INF/fns.tld" %>
 <%
     String basePath = URequest.getBasePath(request);
     request.setAttribute("basePath", basePath);
@@ -84,83 +85,64 @@
         <div class="templatemo_content_right">
             <div class="title"><span class="title_icon"><img src="${basePath}assets/images/books_1.png" alt="" title=""></span>
                 新书上架</div>
-            <div class="templatemo_product_box">
-                <h1>Photography  <span>(by Best Author)</span></h1>
-                <img src="${basePath}assets/images/templatemo_image_01.jpg" alt="image" />
-                <div class="product_info">
-                    <p>Etiam luctus. Quisque facilisis suscipit elit. Curabitur...</p>
-                    <h3>$55</h3>
-                    <div class="buy_now_button"><a href="subpage.html">加入书架</a></div>
-                    <div class="detail_button"><a href="subpage.html">详情</a></div>
+
+            <c:forEach items="${newBooks.dataList }" var="d" varStatus="idx">
+                <div class="templatemo_product_box" style="height: 300px;">
+                    <h1>${d.fname }  <span>(作者 ${d.fauthor})</span></h1>
+                    <div style="position: relative;width: 100px;">
+                        <img src="${basePath}assets/img/ribbon_red.png" alt="image" style="position: absolute;top: 0px;right: -20px;"/>
+                        <img src="${basePath }adminBook/book/image?bookId=${d.fid}" style="width:100px; height:150px"/>
+                    </div>
+                    <div class="product_info">
+                    <p>简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介
+                            简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</p>
+                        <p>出版社：${d.fpublish}</p>
+                        <p>出版时间：${fns:dateFormat(d.fpublishyear) }</p>
+                        <div class="buy_now_button" style="margin-left: -20px;"><a href="subpage.html">加入书架</a></div>
+                        <div class="detail_button" style="margin-top: -36px;margin-left: 85px;"><a href="subpage.html">详情</a></div>
+                    </div>
+                    <div class="cleaner">&nbsp;</div>
                 </div>
-                <div class="cleaner">&nbsp;</div>
-            </div>
-
-            <div class="cleaner_with_width">&nbsp;</div>
-
-            <div class="templatemo_product_box">
-                <h1>Cooking  <span>(by New Author)</span></h1>
-                <img src="${basePath}assets/images/templatemo_image_02.jpg" alt="image" />
-                <div class="product_info">
-                    <p>Aliquam a dui, ac magna quis est eleifend dictum.</p>
-                    <h3>$35</h3>
-                    <div class="buy_now_button"><a href="subpage.html">加入书架</a></div>
-                    <div class="detail_button"><a href="subpage.html">详情</a></div>
-                </div>
-                <div class="cleaner">&nbsp;</div>
-            </div>
-
-            <div class="cleaner_with_height">&nbsp;</div>
-
-            <div class="templatemo_product_box">
-                <h1>Gardening <span>(by Famous Author)</span></h1>
-                <img src="${basePath}assets/images/templatemo_image_03.jpg" alt="image" />
-                <div class="product_info">
-                    <p>Ut fringilla enim sed turpis. Sed justo dolor, convallis at.</p>
-                    <h3>$65</h3>
-                    <div class="buy_now_button"><a href="subpage.html">Buy Now</a></div>
-                    <div class="detail_button"><a href="subpage.html">Detail</a></div>
-                </div>
-                <div class="cleaner">&nbsp;</div>
-            </div>
-
-            <div class="cleaner_with_width">&nbsp;</div>
-
-            <div class="templatemo_product_box">
-                <h1>Sushi Book  <span>(by Japanese Name)</span></h1>
-                <img src="${basePath}assets/images/templatemo_image_04.jpg" alt="image" />
-                <div class="product_info">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                    <h3>$45</h3>
-                    <div class="buy_now_button"><a href="subpage.html">Buy Now</a></div>
-                    <div class="detail_button"><a href="subpage.html">Detail</a></div>
-                </div>
-                <div class="cleaner">&nbsp;</div>
-            </div>
-
-            <div class="cleaner_with_height">&nbsp;</div>
-            <a href="subpage.html" style="margin-left: 600px;">更多...</a>
-            <%--<a href="subpage.html"><img src="${basePath}assets/images/templatemo_ads.jpg" alt="ads" /></a>--%>
+                <c:choose>
+                <c:when test="${idx.index != 0 && idx.index % 2 != 0}">
+                    <div class="cleaner_with_height">&nbsp;</div>
+                </c:when>
+                <c:otherwise>
+                    <div class="cleaner_with_width">&nbsp;</div>
+                </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            <a href="#" style="margin-left: 600px;">更多...</a>
         </div> <!-- end of content right -->
 
         <div class="templatemo_content_right">
             <div class="title">
                 <span class="title_icon"><img src="${basePath}assets/images/books_1.png" alt="" title=""></span>
                 书籍列表</div>
-            <div class="templatemo_product_box">
-                <h1>Photography  <span>(by Best Author)</span></h1>
-                <img src="${basePath}assets/images/templatemo_image_01.jpg" alt="image" />
-                <div class="product_info">
-                    <p>Etiam luctus. Quisque facilisis suscipit elit. Curabitur...</p>
-                    <h3>$55</h3>
-                    <div class="buy_now_button"><a href="subpage.html">Buy Now</a></div>
-                    <div class="detail_button"><a href="subpage.html">Detail</a></div>
+            <c:forEach items="${listPage.dataList }" var="d" varStatus="idx">
+                <div class="templatemo_product_box" style="height: 300px;">
+                    <h1>${d.fname }  <span>(作者 ${d.fauthor})</span></h1>
+                    <img src="${basePath }adminBook/book/image?bookId=${d.fid}" style="width:100px; height:150px"/>
+                    <div class="product_info">
+                        <p>简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介
+                            简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</p>
+                        <p>出版社：${d.fpublish}</p>
+                        <p>出版时间：${fns:dateFormat(d.fpublishyear) }</p>
+                        <div class="buy_now_button" style="margin-left: -20px;"><a href="subpage.html">加入书架</a></div>
+                        <div class="detail_button" style="margin-top: -36px;margin-left: 85px;"><a href="subpage.html">详情</a></div>
+                    </div>
+                    <div class="cleaner">&nbsp;</div>
                 </div>
-                <div class="cleaner">&nbsp;</div>
-            </div>
-
-            <div class="cleaner_with_width">&nbsp;</div>
-            <a href="subpage.html" style="margin-left: 600px;">更多...</a>
+                <c:choose>
+                    <c:when test="${idx.index != 0 && idx.index % 2 != 0}">
+                        <div class="cleaner_with_height">&nbsp;</div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="cleaner_with_width">&nbsp;</div>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            <a href="#" style="margin-left: 600px;">更多...</a>
         </div>
         <div class="cleaner_with_height">&nbsp;</div>
     </div> <!-- end of content -->

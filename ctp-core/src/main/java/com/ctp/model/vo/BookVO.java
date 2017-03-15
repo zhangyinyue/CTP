@@ -9,6 +9,16 @@ public class BookVO extends PageVO{
     private String[] ids;
     private String idsStr;
 
+    private boolean sort;
+
+    public boolean isSort() {
+        return sort;
+    }
+
+    public void setSort(boolean sort) {
+        this.sort = sort;
+    }
+
     public String getId() {
         return id;
     }

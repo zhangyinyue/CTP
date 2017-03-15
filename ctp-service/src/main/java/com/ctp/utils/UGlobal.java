@@ -16,7 +16,7 @@ public class UGlobal{
 		long t = time * 1000;
 		SimpleDateFormat sdf = tl.get();
 		if(sdf == null){
-			sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			sdf = new SimpleDateFormat("yyyy-MM-dd");
 			tl.set(sdf);
 		}
 		return sdf.format(new Date(t));

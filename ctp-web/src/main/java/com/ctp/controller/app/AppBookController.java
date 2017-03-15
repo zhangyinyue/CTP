@@ -46,9 +46,13 @@ public class AppBookController {
      */
     @RequestMapping(value=ControllerName.APP_BOOK_LIST,method={RequestMethod.GET,RequestMethod.POST})
     public String toUserPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
-        /*ListPage listPage = adminBookService.queryBookByPage(book);
+        book.setPageSize(4);
+        book.setSort(true);
+        ListPage newBooks = adminBookService.queryBookByPage(book);
+        request.setAttribute("newBooks", newBooks);
+        book.setSort(false);
+        ListPage listPage = adminBookService.queryBookByPage(book);
         request.setAttribute("listPage", listPage);
-        request.setAttribute("book",book);*/
         return PagePath.APP_BOOK_LIST.toString();
     }
 
