@@ -91,7 +91,7 @@
                     <h1>${d.fname }  <span>(作者 ${d.fauthor})</span></h1>
                     <div style="position: relative;width: 100px;">
                         <img src="${basePath}assets/img/ribbon_red.png" alt="image" style="position: absolute;top: 0px;right: -20px;"/>
-                        <img src="${basePath }adminBook/book/image?bookId=${d.fid}" style="width:100px; height:150px"/>
+                        <img src="${basePath }appBook/book/image?bookId=${d.fid}" style="width:100px; height:150px"/>
                     </div>
                     <div class="product_info">
                     <p>简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介
@@ -122,7 +122,7 @@
             <c:forEach items="${listPage.dataList }" var="d" varStatus="idx">
                 <div class="templatemo_product_box" style="height: 300px;">
                     <h1>${d.fname }  <span>(作者 ${d.fauthor})</span></h1>
-                    <img src="${basePath }adminBook/book/image?bookId=${d.fid}" style="width:100px; height:150px"/>
+                    <img src="${basePath }appBook/book/image?bookId=${d.fid}" style="width:100px; height:150px"/>
                     <div class="product_info">
                         <p>简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介
                             简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</p>
