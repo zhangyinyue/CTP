@@ -39,4 +39,11 @@ public interface ControllerName {
 
 	String APP_BOOK = "appBook";
 	String APP_BOOK_LIST = "/book/list";
+	String APP_LOGIN = "book/login";
+	String APP_ACCOUNT = "book/myAccount";
+	String APP_REGISTER = "book/register";
+	String APP_BOOKS = "book/books";
+	String APP_NEW_BOOKS = "book/newBooks";
+	String APP_MY_BOOKS = "book/myBooks";
+	String APP_BOOK_DETAIL = "book/subpage";
 }

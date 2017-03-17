@@ -56,6 +56,54 @@ public class AppBookController {
         return PagePath.APP_BOOK_LIST.toString();
     }
 
+    @RequestMapping(value=ControllerName.APP_LOGIN,method={RequestMethod.GET,RequestMethod.POST})
+    public String toLoginPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+
+        return PagePath.APP_LOGIN.toString();
+    }
+
+    @RequestMapping(value=ControllerName.APP_ACCOUNT,method={RequestMethod.GET,RequestMethod.POST})
+    public String toAccountPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+
+        return PagePath.APP_ACCOUNT.toString();
+    }
+
+    @RequestMapping(value=ControllerName.APP_REGISTER,method={RequestMethod.GET,RequestMethod.POST})
+    public String toRegisterPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+
+        return PagePath.APP_REGISTER.toString();
+    }
+
+    @RequestMapping(value=ControllerName.APP_BOOKS,method={RequestMethod.GET,RequestMethod.POST})
+    public String toBooksPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+        book.setPageSize(8);
+        book.setSort(false);
+        ListPage listPage = adminBookService.queryBookByPage(book);
+        request.setAttribute("listPage", listPage);
+        return PagePath.APP_BOOKS.toString();
+    }
+
+    @RequestMapping(value=ControllerName.APP_NEW_BOOKS,method={RequestMethod.GET,RequestMethod.POST})
+    public String toNewBooksPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+        book.setPageSize(8);
+        book.setSort(true);
+        ListPage newBooks = adminBookService.queryBookByPage(book);
+        request.setAttribute("newBooks", newBooks);
+        return PagePath.APP_NEW_BOOKS.toString();
+    }
+
+    @RequestMapping(value=ControllerName.APP_MY_BOOKS,method={RequestMethod.GET,RequestMethod.POST})
+    public String toMyBooksPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+
+        return PagePath.APP_MY_BOOKS.toString();
+    }
+
+    @RequestMapping(value=ControllerName.APP_BOOK_DETAIL,method={RequestMethod.GET,RequestMethod.POST})
+    public String toSubPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+
+        return PagePath.APP_BOOK_DETAIL.toString();
+    }
+
     /**
      * 书籍编辑界面
      * @param book

@@ -17,7 +17,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>图书推荐系统1</title>
+    <title>图书推荐系统</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <link href="${basePath}assets/css/templatemo_style.css" rel="stylesheet" type="text/css" />
@@ -60,14 +60,14 @@
     <!--菜单-->
     <div id="templatemo_menu">
         <ul>
-            <li><a href="index.html" >首页</a></li>
-            <li><a href="subpage.html">书籍列表</a></li>
-            <li><a href="subpage.html">新书上架</a></li>
-            <li><a href="subpage.html">我的好友</a></li>
-            <li><a href="#" class="current">我的书架</a></li>
-            <li><a href="#">个人信息</a></li>
-            <li><a href="#">登陆</a></li>
-            <li><a href="#">注册</a></li>
+            <li><a href="${basePath}appBook/book/list" >首页</a></li>
+            <li><a href="${basePath}appBook/book/books">书籍列表</a></li>
+            <li><a href="${basePath}appBook/book/newBooks">新书上架</a></li>
+            <li><a href="${basePath}appBook/book/myBooks">我的好友</a></li>
+            <li><a href="${basePath}appBook/book/myBooks" class="current">我的书架</a></li>
+            <li><a href="${basePath}appBook/book/myAccount">个人信息</a></li>
+            <li><a href="${basePath}appBook/book/login">登陆</a></li>
+            <li><a href="${basePath}appBook/book/register">注册</a></li>
         </ul>
     </div>
 
@@ -223,8 +223,8 @@
 
     <div id="templatemo_footer">
 
-        <a href="subpage.html">首页</a> | <a href="subpage.html">书籍列表</a> | <a href="subpage.html">新书上架</a> | <a href="#">我的好友</a> | <a href="#">我的书架</a> | <a href="#">个人信息</a><br />
-        Copyright © 2017 <a href="#"><strong>读友会</strong></a>
+        <a href="${basePath}appBook/book/list">首页</a> | <a href="${basePath}appBook/book/books">书籍列表</a> | <a href="${basePath}appBook/book/newBooks">新书上架</a> | <a href="#">我的好友</a> | <a href="${basePath}appBook/book/myBooks">我的书架</a> | <a href="#">个人信息</a><br />
+        Copyright © 2017 <a href="${basePath}appBook/book/list"><strong>读友会</strong></a>
         <!-- Credit: www.templatemo.com -->	</div>
     <!-- end of footer -->
     <!--  Free CSS Template www.templatemo.com -->

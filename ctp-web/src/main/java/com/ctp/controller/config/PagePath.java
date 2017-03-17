@@ -54,6 +54,13 @@ public enum PagePath {
 	APP_BOOK_LIST("app/home"),
     APP_MYY_BOOKS("app/mybooks"),
     APP_SUBPAGE("app/subpage"),
+	APP_LOGIN("app/login"),
+	APP_ACCOUNT("app/myaccount"),
+	APP_REGISTER("app/register"),
+	APP_BOOKS("app/books"),
+	APP_NEW_BOOKS("app/newbooks"),
+	APP_MY_BOOKS("app/mybooks"),
+	APP_BOOK_DETAIL("app/subpage")
 	;
 	
 	private String strVal;

@@ -319,3 +319,83 @@ img {
 	font-weight: normal;
 }
 /* end of footer */
+
+
+
+/* 注册页面 */
+.templatemo_login_container{
+	height: 100%;
+}
+.templatemo_login_content .contact_form {
+	width: 400px;
+	padding: 25px;
+	margin: 20px auto;
+	border: 1px #DFD1D2 dashed;
+	position: relative;
+}
+.templatemo_login_content  .form_subtitle {
+	position: absolute;
+	top: -15px;
+	left: 30px;
+	width: auto;
+	height: 35px;
+	background-color: #795636;
+	text-align: center;
+	padding: 0 7px 0 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	line-height: 35px;
+	border-radius: 4px;
+}
+.templatemo_login_content .templatemo_login_form{
+	margin: 20px 0;
+}
+.templatemo_login_content .form_row {
+	width: 335px;
+	_width: 355px;
+	clear: both;
+	padding: 10px 0 10px 0;
+	_padding: 5px 0 5px 0;
+	color: #a53d17;
+}
+.templatemo_login_content  label.contact {
+	width: 75px;
+	float: left;
+	font-size: 12px;
+	text-align: right;
+	padding: 4px 5px 0 0;
+	color: #fff;
+}
+.templatemo_login_content  strong,.templatemo_login_content  b {
+	font-weight: bold;
+}
+.templatemo_login_content input.contact_input {
+	width: 253px;
+	height: 18px;
+	background-color: #fff;
+	/*color: #999999;*/
+	color: #111110;
+	border: 1px #DFDFDF solid;
+	float: left;
+}
+.templatemo_login_content .terms {
+	padding: 0 0 0 80px;
+}
+.templatemo_login_content input[type="checkbox"] {
+	margin: 3px 3px 3px 4px;
+}
+.templatemo_login_content input[type="checkbox"] {
+	-webkit-appearance: checkbox;
+	box-sizing: border-box;
+}
+.templatemo_login_content input.login {
+	width: 71px;
+	height: 25px;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	float: right;
+	color: #FFFFFF;
+	background: #845937;
+	border-radius: 4px;
+}
