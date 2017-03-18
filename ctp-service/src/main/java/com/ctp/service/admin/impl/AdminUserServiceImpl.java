@@ -108,6 +108,26 @@ public class AdminUserServiceImpl implements IAdminUserService {
 		return result;
 	}
 
+	@Override
+	public String appLogin(TUser user) {
+		String result = checkEmpty(user);
+		/*用户名密码非空*/
+		if(result == null){
+			TUser tuser = userDao.getUserByName(user.getFname());
+			if(tuser == null){
+				result =  LoginEnum.ACCOUNT_NO_EXISTS.getStrVal();
+			}else if(user.getFpwd().equals(tuser.getFpwd())){
+				result = LoginEnum.LOGIN_SUCCESS.getStrVal();
+				HttpServletRequest request = ContextUtils.getRequest();
+				HttpServletResponse response = ContextUtils.getResponse();
+				URequest.setSession(request, SessionEnum.APPUSER.toString(), tuser);
+			}else{
+				result = LoginEnum.PASSWORD_ERROR.getStrVal();
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * 检查用户名密码是否为空
 	 * @param user
@@ -180,6 +200,9 @@ public class AdminUserServiceImpl implements IAdminUserService {
 
 	@Override
 	public TUser getUser(String userId) {
+		if (userId == null || "".equals(userId)) {
+			return  null;
+		}
 		TUser user =  userDao.getUser(userId);
 		TRole role = authDao.getRole(user.getFroleID());
 		user.setRoleName(role == null ? "":role.getFname());

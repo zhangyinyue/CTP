@@ -7,6 +7,7 @@ package com.ctp.service.config;
 public enum SessionEnum  {
 	/*用户*/
 	USER("user"),
+	APPUSER("appUser"),
 	/*权限树*/
 	AUTH_TREE("authTree"),
 	

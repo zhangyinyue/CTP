@@ -33,7 +33,6 @@
             <li><a href="${basePath}appBook/book/newBooks">新书上架</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的好友</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的书架</a></li>
-            <li><a href="${basePath}appBook/book/myAccount">个人信息</a></li>
             <li><a href="${basePath}appBook/book/login">登陆</a></li>
             <li><a href="${basePath}appBook/book/register" class="current">注册</a></li>
         </ul>
@@ -63,22 +62,25 @@
     <div id="templatemo_content" class="templatemo_login_content">
         <div class="contact_form">
             <div class="form_subtitle">注册</div>
-            <form class="templatemo_login_form" name="login" action="#">
+            <form class="templatemo_login_form" name="login" action="${basePath}appUser/user/add">
                 <div class="form_row">
                     <label class="contact"><strong>用户名:</strong></label>
-                    <input type="text" class="contact_input">
+                    <input type="text" class="contact_input" name="fname">
                 </div>
                 <div class="form_row">
                     <label class="contact"><strong>密码:</strong></label>
-                    <input type="text" class="contact_input">
+                    <input type="text" class="contact_input" name="fpwd">
                 </div>
                 <div class="form_row">
-                    <label class="contact"><strong>邮箱:</strong></label>
-                    <input type="text" class="contact_input">
+                    <label class="contact"><strong>姓别:</strong></label>
+                    <select name="fsex">
+                        <option value="1" >男</option>
+                        <option value="0" >女</option>
+                    </select>
                 </div>
                 <div class="form_row">
-                    <label class="contact"><strong>电话:</strong></label>
-                    <input type="text" class="contact_input">
+                    <label class="contact"><strong>年龄:</strong></label>
+                    <input type="text" class="contact_input" name="fage">
                 </div>
                 <div class="form_row">
                     <input type="submit" class="login" value="注册">

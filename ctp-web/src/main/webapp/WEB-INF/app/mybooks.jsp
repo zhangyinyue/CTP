@@ -65,9 +65,14 @@
             <li><a href="${basePath}appBook/book/newBooks">新书上架</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的好友</a></li>
             <li><a href="${basePath}appBook/book/myBooks" class="current">我的书架</a></li>
-            <li><a href="${basePath}appBook/book/myAccount">个人信息</a></li>
-            <li><a href="${basePath}appBook/book/login">登陆</a></li>
-            <li><a href="${basePath}appBook/book/register">注册</a></li>
+            <c:if test="${empty sessionScope.appUser}">
+                <li><a href="${basePath}appBook/book/login">登陆</a></li>
+                <li><a href="${basePath}appBook/book/register">注册</a></li>
+            </c:if>
+            <c:if test="${ not empty sessionScope.appUser}">
+                <li><a href="${basePath}appBook/book/myAccount">个人信息</a></li>
+                <li><a href="${basePath}appUser/user/logout">退出登陆</a></li>
+            </c:if>
         </ul>
     </div>
 

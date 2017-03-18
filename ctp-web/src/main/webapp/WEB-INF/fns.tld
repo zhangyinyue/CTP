@@ -18,12 +18,19 @@
     <function-signature>java.lang.String dateFormat(java.lang.Long)</function-signature>
     <example>${fns:dateFormat(0)}</example>
   </function>
-  
+
   <function>
     <description>分页代码</description>
     <name>paging</name>
     <function-class>com.ctp.utils.UGlobal</function-class>
     <function-signature>java.lang.String paging(com.ctp.dao.base.impl.ListPage)</function-signature>
     <example>${fns:paging(listPage)}</example>
+  </function>
+  <function>
+    <description>分页代码</description>
+    <name>appPaging</name>
+    <function-class>com.ctp.utils.UGlobal</function-class>
+    <function-signature>java.lang.String appPaging(com.ctp.dao.base.impl.ListPage)</function-signature>
+    <example>${fns:appPaging(listPage)}</example>
   </function>
 </taglib>

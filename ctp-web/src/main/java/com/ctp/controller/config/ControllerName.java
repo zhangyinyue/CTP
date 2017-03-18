@@ -46,4 +46,11 @@ public interface ControllerName {
 	String APP_NEW_BOOKS = "book/newBooks";
 	String APP_MY_BOOKS = "book/myBooks";
 	String APP_BOOK_DETAIL = "book/subpage";
+
+	String APP_USER = "appUser";
+	String APP_USER_LIST = "user/list";
+	String APP_USER_ADD = "user/add";
+	String APP_USER_DEL = "user/del";
+	String APP_USER_LOGIN = "user/login";
+	String APP_USER_LOGOUT = "user/logout";			//登出操作
 }

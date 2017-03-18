@@ -399,3 +399,52 @@ img {
 	background: #845937;
 	border-radius: 4px;
 }
+
+
+/* 个人信息页面 */
+.info_preview {
+	padding-top: 8px;
+}
+.info_preview .preview_title {
+	padding-bottom: 8px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	overflow: hidden;
+	height: 50px;
+	position: relative;
+}
+.info_preview .preview_title h4 {
+	font-size: 16px;
+	float: left;
+}
+.info_preview .preview_title a {
+	font-size: 16px;
+	color: #498B31;
+	position: absolute;
+	top: 20px;
+	right: 10px;
+}
+.info_preview .preview_list {
+	padding: 15px 0 8px;
+}
+.info_preview .preview_list ul {
+	margin-bottom: 14px;
+}
+.info_preview .preview_list li {
+	margin-bottom: 10px;
+	overflow: hidden;
+	list-style: none;
+	font-size: 14px;
+}
+.info_preview .preview_list li label {
+	line-height: 22px;
+	display: block;
+	width: 138px;
+	height: 22px;
+	float: left;
+	cursor: default;
+}
+.info_preview .preview_list .preview_option {
+	line-height: 22px;
+	margin-left: 120px;
+}

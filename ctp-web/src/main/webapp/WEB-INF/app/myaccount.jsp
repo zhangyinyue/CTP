@@ -34,55 +34,45 @@
             <li><a href="${basePath}appBook/book/myBooks">我的好友</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的书架</a></li>
             <li><a href="${basePath}appBook/book/myAccount" class="current">个人信息</a></li>
-            <li><a href="${basePath}appBook/book/login">登陆</a></li>
-            <li><a href="${basePath}appBook/book/register">注册</a></li>
+            <c:if test="${empty sessionScope.appUser}">
+                <li><a href="${basePath}appBook/book/login">登陆</a></li>
+                <li><a href="${basePath}appBook/book/register">注册</a></li>
+            </c:if>
+            <c:if test="${ not empty sessionScope.appUser}">
+                <li><a href="${basePath}appUser/user/logout">退出登陆</a></li>
+            </c:if>
         </ul>
     </div>
-
-    <!--公告及新书上架-->
-    <div id="templatemo_header">
-        <div id="templatemo_notice">
-            <p>
-                <span>《漂亮朋友》</span> 强势登陆
-                敬请期待！
-            </p>
-            <a href="subpage.html" style="margin-left: 50px;">更多...</a>
-        </div>
-
-
-        <div id="templatemo_new_books">
-            <ul>
-                <li>《巨人的陨落》</li>
-                <li>《乖，摸摸头》</li>
-                <li>《丝绸之路》</li>
-            </ul>
-            <a href="subpage.html" style="margin-left: 50px;">更多...</a>
-        </div>
-    </div> <!-- end of header -->
-
-    <!--登录-->
     <div id="templatemo_content" class="templatemo_login_content">
-        <div class="contact_form">
-            <div class="form_subtitle">login into your account</div>
-            <form class="templatemo_login_form" name="login" action="#">
-                <div class="form_row">
-                    <label class="contact"><strong>用户名:</strong></label>
-                    <input type="text" class="contact_input">
-                </div>
-                <div class="form_row">
-                    <label class="contact"><strong>密码:</strong></label>
-                    <input type="text" class="contact_input">
-                </div>
-                <div class="form_row">
-                    <div class="terms">
-                        <input type="checkbox" name="terms">
-                        Remember me
-                    </div>
-                </div>
-                <div class="form_row">
-                    <input type="submit" class="login" value="登录">
-                </div>
-            </form>
+        <div class="info_preview">
+            <div class="preview_title bbor2">
+                <h4>基本资料</h4>
+                <%--<a id="edit_base_info" href="javascript:;" class="c_tx">修改</a>--%>
+            </div>
+            <div class="preview_list">
+                <ul>
+                    <li class="info-li">
+                        <label>用户名：</label>
+                        <div class="preview_option">${sessionScope.appUser.fname}</div>
+                    </li>
+                    <li class="info-li">
+                        <label>性别：</label>
+                        <div class="preview_option">
+                            <c:if test="${sessionScope.appUser.fsex == 1 }">
+                                男
+                            </c:if>
+                            <c:if test="${sessionScope.appUser.fsex != 1 }">
+                                女
+                            </c:if>
+                        </div>
+                    </li>
+                    <li class="info-li">
+                        <label>年龄：</label>
+                        <div class="preview_option">${sessionScope.appUser.fage }</div>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div> <!-- end of content -->
 

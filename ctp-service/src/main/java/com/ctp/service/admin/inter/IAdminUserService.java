@@ -32,6 +32,13 @@ public interface IAdminUserService {
 	 * @return LoginInfo的信息
 	 */
 	String login(TUser user);
+
+	/**
+	 * 服务端登陆
+	 * @param user
+	 * @return
+	 */
+	String appLogin(TUser user);
 	/**
 	 * 跳转到登陆界面
 	 * @return

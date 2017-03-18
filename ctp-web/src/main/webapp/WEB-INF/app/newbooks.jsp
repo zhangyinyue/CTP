@@ -22,6 +22,24 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <link href="${basePath}assets/css/templatemo_style.css" rel="stylesheet" type="text/css" />
+    <link href="${basePath}assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css" >
+
+        body {
+            margin: 0;
+            padding: 0;
+            line-height: 1.5em;
+            font-family: Verdana, Arial, san-serif;
+            font-size: 11px;
+            color: #ffffff;
+            background: #4b4743;
+        }
+    </style>
+    <script >
+        var paging = function (pageNo) {
+            window.location = "${basePath}appBook/book/newBooks"+"?pageNo="+pageNo;
+        }
+    </script>
 </head>
 <body>
 <div id="templatemo_container">
@@ -33,9 +51,14 @@
             <li><a href="${basePath}appBook/book/newBooks" class="current">新书上架</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的好友</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的书架</a></li>
-            <li><a href="${basePath}appBook/book/myAccount">个人信息</a></li>
-            <li><a href="${basePath}appBook/book/login">登陆</a></li>
-            <li><a href="${basePath}appBook/book/register">注册</a></li>
+            <c:if test="${empty sessionScope.appUser}">
+                <li><a href="${basePath}appBook/book/login">登陆</a></li>
+                <li><a href="${basePath}appBook/book/register">注册</a></li>
+            </c:if>
+            <c:if test="${ not empty sessionScope.appUser}">
+                <li><a href="${basePath}appBook/book/myAccount">个人信息</a></li>
+                <li><a href="${basePath}appUser/user/logout">退出登陆</a></li>
+            </c:if>
         </ul>
     </div>
 
@@ -92,17 +115,19 @@
                 </c:otherwise>
                 </c:choose>
             </c:forEach>
-            <a href="#" style="margin-left: 600px;">更多...</a>
+
         </div> <!-- end of content right -->
+        <div class="cleaner_with_height">&nbsp;</div>
+        ${fns:appPaging(newBooks)};
     </div> <!-- end of content -->
 
     <div id="templatemo_footer">
-
         <a href="${basePath}appBook/book/list">首页</a> | <a href="${basePath}appBook/book/books">书籍列表</a> | <a href="${basePath}appBook/book/newBooks">新书上架</a> | <a href="#">我的好友</a> | <a href="${basePath}appBook/book/myBooks">我的书架</a> | <a href="#">个人信息</a><br />
         Copyright © 2017 <a href="${basePath}appBook/book/list"><strong>读友会</strong></a>
         <!-- Credit: www.templatemo.com -->	</div>
     <!-- end of footer -->
     <!--  Free CSS Template www.templatemo.com -->
 </div> <!-- end of container -->
+
 </body>
 </html>

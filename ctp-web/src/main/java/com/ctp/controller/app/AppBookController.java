@@ -76,7 +76,7 @@ public class AppBookController {
 
     @RequestMapping(value=ControllerName.APP_BOOKS,method={RequestMethod.GET,RequestMethod.POST})
     public String toBooksPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
-        book.setPageSize(8);
+        book.setPageSize(4);
         book.setSort(false);
         ListPage listPage = adminBookService.queryBookByPage(book);
         request.setAttribute("listPage", listPage);
@@ -85,7 +85,7 @@ public class AppBookController {
 
     @RequestMapping(value=ControllerName.APP_NEW_BOOKS,method={RequestMethod.GET,RequestMethod.POST})
     public String toNewBooksPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
-        book.setPageSize(8);
+        book.setPageSize(4);
         book.setSort(true);
         ListPage newBooks = adminBookService.queryBookByPage(book);
         request.setAttribute("newBooks", newBooks);

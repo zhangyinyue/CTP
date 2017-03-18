@@ -33,9 +33,15 @@
             <li><a href="${basePath}appBook/book/newBooks">新书上架</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的好友</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的书架</a></li>
-            <li><a href="${basePath}appBook/book/myAccount">个人信息</a></li>
-            <li><a href="${basePath}appBook/book/login">登陆</a></li>
-            <li><a href="${basePath}appBook/book/register">注册</a></li>
+
+            <c:if test="${empty sessionScope.appUser}">
+                <li><a href="${basePath}appBook/book/login">登陆</a></li>
+                <li><a href="${basePath}appBook/book/register">注册</a></li>
+            </c:if>
+            <c:if test="${ not empty sessionScope.appUser}">
+                <li><a href="${basePath}appBook/book/myAccount">个人信息</a></li>
+                <li><a href="${basePath}appUser/user/logout">退出登陆</a></li>
+            </c:if>
         </ul>
     </div>
 
@@ -112,7 +118,7 @@
                 </c:otherwise>
                 </c:choose>
             </c:forEach>
-            <a href="#" style="margin-left: 600px;">更多...</a>
+            <a href="${basePath}appBook/book/newBooks" style="margin-left: 600px;">更多...</a>
         </div> <!-- end of content right -->
 
         <div class="templatemo_content_right">
@@ -142,7 +148,7 @@
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
-            <a href="#" style="margin-left: 600px;">更多...</a>
+            <a href="${basePath}appBook/book/books" style="margin-left: 600px;">更多...</a>
         </div>
         <div class="cleaner_with_height">&nbsp;</div>
     </div> <!-- end of content -->
