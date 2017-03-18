@@ -60,6 +60,7 @@ public enum PagePath {
 	APP_BOOKS("app/books"),
 	APP_NEW_BOOKS("app/newbooks"),
 	APP_MY_BOOKS("app/mybooks"),
+	APP_MY_FRIENDS("app/myfriends"),
 	APP_BOOK_DETAIL("app/subpage")
 	;
 	

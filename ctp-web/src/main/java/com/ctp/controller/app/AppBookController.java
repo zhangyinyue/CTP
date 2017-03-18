@@ -9,8 +9,10 @@ import com.ctp.model.po.TBook;
 import com.ctp.model.vo.BookVO;
 import com.ctp.service.admin.inter.IAdminBookService;
 import com.ctp.service.config.ServiceName;
+import com.ctp.service.config.SessionEnum;
 import com.ctp.utils.ContextUtils;
 import com.ctp.utils.StringUtils;
+import com.ctp.utils.URequest;
 import com.ctp.utils.UResponse;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -94,8 +96,18 @@ public class AppBookController {
 
     @RequestMapping(value=ControllerName.APP_MY_BOOKS,method={RequestMethod.GET,RequestMethod.POST})
     public String toMyBooksPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
-
+        if (URequest.getSession(request, SessionEnum.APPUSER.toString()) == null ) {
+            return PagePath.APP_LOGIN.toString();
+        }
         return PagePath.APP_MY_BOOKS.toString();
+    }
+
+    @RequestMapping(value=ControllerName.APP_MY_FRIENDS,method={RequestMethod.GET,RequestMethod.POST})
+    public String toMyFriendsPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+        if (URequest.getSession(request, SessionEnum.APPUSER.toString()) == null ) {
+            return PagePath.APP_LOGIN.toString();
+        }
+        return PagePath.APP_MY_FRIENDS.toString();
     }
 
     @RequestMapping(value=ControllerName.APP_BOOK_DETAIL,method={RequestMethod.GET,RequestMethod.POST})

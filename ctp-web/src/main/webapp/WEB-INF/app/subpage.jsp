@@ -34,7 +34,7 @@
             <li><a href="${basePath}appBook/book/list" class="current">首页</a></li>
             <li><a href="${basePath}appBook/book/books">书籍列表</a></li>
             <li><a href="${basePath}appBook/book/newBooks">新书上架</a></li>
-            <li><a href="${basePath}appBook/book/myBooks">我的好友</a></li>
+            <li><a href="${basePath}appBook/book/myFriends">我的好友</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的书架</a></li>
             <c:if test="${empty sessionScope.appUser}">
                 <li><a href="${basePath}appBook/book/login">登陆</a></li>

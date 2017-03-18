@@ -32,6 +32,15 @@ public class TBook {
     private String fpublishyearstr;
     private BigDecimal fscore;
     private long fcreatedate;
+    private String fdesc;
+
+    public String getFdesc() {
+        return fdesc;
+    }
+
+    public void setFdesc(String fdesc) {
+        this.fdesc = fdesc;
+    }
 
     public byte[] getFcontent() {
         return fcontent;

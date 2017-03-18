@@ -45,6 +45,7 @@ public interface ControllerName {
 	String APP_BOOKS = "book/books";
 	String APP_NEW_BOOKS = "book/newBooks";
 	String APP_MY_BOOKS = "book/myBooks";
+	String APP_MY_FRIENDS = "book/myFriends";
 	String APP_BOOK_DETAIL = "book/subpage";
 
 	String APP_USER = "appUser";

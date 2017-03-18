@@ -73,7 +73,12 @@
 										<input type="date"   name="fpublishyearstr" value="${book.fpublishyearstr}"  data-required="1" class="span6 m-wrap">
 									</div>
 								</div>
-
+								<div class="control-group">
+									<label class="control-label">出版时间<span class="required">*</span></label>
+									<div class="controls">
+										<textarea cols="50" rows="50" name="fdesc" value="${book.fdesc}"></textarea>
+									</div>
+								</div>
 
 								<div class="form-actions">
 									<button type="submit" class="btn purple">提交</button>

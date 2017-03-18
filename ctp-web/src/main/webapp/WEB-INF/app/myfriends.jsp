@@ -31,51 +31,48 @@
             <li><a href="${basePath}appBook/book/list" >首页</a></li>
             <li><a href="${basePath}appBook/book/books">书籍列表</a></li>
             <li><a href="${basePath}appBook/book/newBooks">新书上架</a></li>
-            <li><a href="${basePath}appBook/book/myFriends">我的好友</a></li>
+            <li><a href="${basePath}appBook/book/myFriends" class="current">我的好友</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的书架</a></li>
-            <li><a href="${basePath}appBook/book/myAccount" class="current">个人信息</a></li>
             <c:if test="${empty sessionScope.appUser}">
                 <li><a href="${basePath}appBook/book/login">登陆</a></li>
                 <li><a href="${basePath}appBook/book/register">注册</a></li>
             </c:if>
             <c:if test="${ not empty sessionScope.appUser}">
+                <li><a href="${basePath}appBook/book/myAccount">个人信息</a></li>
                 <li><a href="${basePath}appUser/user/logout">退出登陆</a></li>
             </c:if>
         </ul>
     </div>
-    <div id="templatemo_content" class="templatemo_login_content">
-        <div class="info_preview">
-            <div class="preview_title bbor2">
-                <h4>基本资料</h4>
-                <%--<a id="edit_base_info" href="javascript:;" class="c_tx">修改</a>--%>
-            </div>
-            <div class="preview_list">
-                <ul>
-                    <li class="info-li">
-                        <label>用户名：</label>
-                        <div class="preview_option">${sessionScope.appUser.fname}</div>
-                    </li>
-                    <li class="info-li">
-                        <label>性别：</label>
-                        <div class="preview_option">
-                            <c:if test="${sessionScope.appUser.fsex == 1 }">
-                                男
-                            </c:if>
-                            <c:if test="${sessionScope.appUser.fsex != 1 }">
-                                女
-                            </c:if>
-                        </div>
-                    </li>
-                    <li class="info-li">
-                        <label>年龄：</label>
-                        <div class="preview_option">${sessionScope.appUser.fage }</div>
-                    </li>
-                </ul>
-            </div>
 
+    <!--图片-->
+    <div class="templatemo_header">
+        <img src="${basePath}assets/images/adds.jpg" alt="" class="head-img">
+    </div>
+
+    <!--好友列表-->
+    <div id="templatemo_content" class="templatemo_friend_list_content">
+        <ul class="table-header">
+            <li class="name"><img class="table-header-logo" src="${basePath}assets/images/friend.png" alt="好友信息">好友信息</li>
+            <li class="read"><img class="table-header-logo" src="${basePath}assets/images/book.png" alt="最近阅读">最近阅读</li>
+            <li class="potions"><img class="table-header-logo" src="${basePath}assets/images/option.png" alt="管理">管理</li>
+        </ul>
+        <div class="table-body">
+            <ul class="table-item">
+                <li class="name">喵了个咪</li>
+                <li class="read">《我摸到一条鲸鱼》</li>
+                <li class="potions">
+                    <a>取消关注</a>
+                </li>
+            </ul>
+            <ul class="table-item">
+                <li class="name">喵了个咪</li>
+                <li class="read">《我摸到一条鲸鱼》</li>
+                <li class="potions">
+                    <a>取消关注</a>
+                </li>
+            </ul>
         </div>
     </div> <!-- end of content -->
-
     <div id="templatemo_footer">
 
         <a href="${basePath}appBook/book/list">首页</a> | <a href="${basePath}appBook/book/books">书籍列表</a> | <a href="${basePath}appBook/book/newBooks">新书上架</a> | <a href="#">我的好友</a> | <a href="${basePath}appBook/book/myBooks">我的书架</a> | <a href="#">个人信息</a><br />
