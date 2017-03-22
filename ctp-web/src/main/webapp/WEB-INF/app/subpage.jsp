@@ -54,7 +54,6 @@
                 <span>《漂亮朋友》</span> 强势登陆
                 敬请期待！
             </p>
-            <a href="subpage.html" style="margin-left: 50px;">更多...</a>
         </div>
 
 
@@ -64,7 +63,7 @@
                 <li>《乖，摸摸头》</li>
                 <li>《丝绸之路》</li>
             </ul>
-            <a href="subpage.html" style="margin-left: 50px;">更多...</a>
+            <a href="${basePath}appBook/book/newBooks" style="margin-left: 50px;">更多...</a>
         </div>
     </div> <!-- end of header -->
 
@@ -82,8 +81,16 @@
             <div class="templatemo_content_left_section">
                 <h1>我的好友</h1>
                 <ul>
-                    <li><a href="#">张银约</a></li>
-                    <li><a href="#">唐唐唐</a></li>
+                    <c:choose>
+                        <c:when test="${empty userPage.dataList}">
+                            <a href="${basePath}appBook/book/login" >请先登陆</a>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${userPage.dataList }" var="d">
+                                <li><a href="${basePath}appBook/book/myFriends">${d.fname}</a></li>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
 
                 </ul>
             </div>
@@ -91,30 +98,20 @@
 
         <!--内容-->
         <div class="templatemo_content_right">
-            <h1>Book Title <span>(by author name)</span></h1>
-            <div class="image_panel"><img src="images/templatemo_image_02.jpg" alt="CSS Template" width="100"
+            <h1>${book.fname}<span>(作者 ${book.fauthor})</span></h1>
+            <div class="image_panel"><img src="${basePath }appBook/book/image?bookId=${book.fid}" alt="CSS Template" width="100"
                                           height="150"/></div>
-            <h2>Read the lessons - Watch the videos - Do the exercises</h2>
+            <%--<h2>Read the lessons - Watch the videos - Do the exercises</h2>--%>
             <ul>
-                <li>By Deke <a href="#">McClelland</a></li>
-                <li>January 2024</li>
-                <li>Pages: 498</li>
-                <li>ISBN 10: 0-496-91612-0 | ISBN 13: 9780492518154</li>
+                <li>出版社：${book.fpublish}</li>
+                <li>出版时间：${fns:dateFormat(book.fpublishyear) }</li>
+                <%--<li>Pages: 498</li>
+                <li>ISBN 10: 0-496-91612-0 | ISBN 13: 9780492518154</li>--%>
             </ul>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec dui. Donec nec neque ut quam sodales
-                feugiat. Nam sodales, pede vel dapibus lobortis, ipsum diam molestie risus, a vulputate risus nisl
-                pulvinar lacus.</p>
+            <p>简介：${book.fdesc}</p>
 
-            <p>Donec at arcu. Nunc aliquam, dolor vitae sollicitudin lacinia, nibh orci sagittis diam, dignissim sodales
-                dui erat nec eros. Fusce quis enim. Aenean eleifend, neque hendrerit elementum sodales, odio erat
-                sagittis quam, sed tempor orci magna vitae tellus. Proin dui mauris, tempor eget, pulvinar sed, pretium
-                sit amet, dui. Proin vulputate justo et quam.</p>
 
-            <p>In fermentum, eros ac tincidunt aliquam, elit velit semper nunc, a tincidunt orci lectus a arcu. Nullam
-                commodo, arcu non facilisis imperdiet, felis lectus tempus felis, vitae volutpat augue ante quis leo.
-                Aliquam tristique dolor ac odio. Sed consectetur, lacus et dictum tristique, odio neque elementum ante,
-                nec eleifend leo dolor vel tortor.</p>
 
             <div class="cleaner_with_height">&nbsp;</div>
 

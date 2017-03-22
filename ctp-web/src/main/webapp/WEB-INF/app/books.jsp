@@ -69,7 +69,6 @@
                 <span>《漂亮朋友》</span> 强势登陆
                 敬请期待！
             </p>
-            <a href="subpage.html" style="margin-left: 50px;">更多...</a>
         </div>
 
 
@@ -79,7 +78,7 @@
                 <li>《乖，摸摸头》</li>
                 <li>《丝绸之路》</li>
             </ul>
-            <a href="subpage.html" style="margin-left: 50px;">更多...</a>
+            <a href="${basePath}appBook/book/newBooks" style="margin-left: 50px;">更多...</a>
         </div>
     </div> <!-- end of header -->
 
@@ -94,8 +93,7 @@
                     <h1>${d.fname }  <span>(作者 ${d.fauthor})</span></h1>
                     <img src="${basePath }appBook/book/image?bookId=${d.fid}" style="width:100px; height:150px"/>
                     <div class="product_info">
-                        <p>简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介
-                            简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</p>
+                        <p>${d.fdesc}</p>
                         <p>出版社：${d.fpublish}</p>
                         <p>出版时间：${fns:dateFormat(d.fpublishyear) }</p>
                         <div class="buy_now_button" style="margin-left: -20px;"><a href="subpage.html">加入书架</a></div>

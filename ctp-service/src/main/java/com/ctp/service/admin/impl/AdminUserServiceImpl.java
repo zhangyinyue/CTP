@@ -209,6 +209,23 @@ public class AdminUserServiceImpl implements IAdminUserService {
 		return user;
 	}
 
-	
-	
+	@Override
+	public ListPage getFriends(UserVO user) {
+		PageParam page = new PageParam();
+		StringBuilder query = new StringBuilder();
+		StringBuilder count = new StringBuilder();
+		Map<String, Object> params = new HashMap<>();
+		query.append("SELECT u FROM TUser u WHERE u.fid in ( ").append("SELECT ul.ffriendID FROM TUserList ul where ul.fuserID = '").append(user.getId()).append("' ) ");
+		count.append("SELECT COUNT(u.fid) FROM TUser u WHERE u.fid in ( ").append("SELECT ul.ffriendID FROM TUserList ul where ul.fuserID = '").append(user.getId()).append("' ) ");
+
+		page.setPageNo(user.getPageNo());
+		page.setPageSize(user.getPageSize());
+		page.setQuery(query.toString());
+		page.setCount(count.toString());
+		page.setParams(params);
+
+		return userDao.queryByPage(page);
+	}
+
+
 }

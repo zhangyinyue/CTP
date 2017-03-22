@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -22,10 +23,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 
 /**
@@ -100,7 +98,7 @@ public class AdminBookController {
      * @param book
      */
     @RequestMapping(value=ControllerName.ADMIN_BOOK_SAVE,method=RequestMethod.POST)
-    public void toBookSave(TBook book,HttpServletResponse response){
+    public void toBookSave(TBook book,HttpServletResponse response,HttpServletRequest request){
         if(StringUtils.isEmpty(book.getFname())){
             logger.error("书名不能为空！");
             UResponse.writeFail(response, ControllerReturnMsg.NAME_NOT_NULL.toString());
@@ -108,6 +106,34 @@ public class AdminBookController {
         }
         try{
             adminBookService.saveBook(book);
+            if(book.getFile() != null){
+                //book.setFcontent(book.getFile().getBytes());
+                CommonsMultipartFile file = book.getFile();
+                if(!file.isEmpty()){
+                    try {
+
+                        File books = new File(request.getContextPath()+"/ctp-web/src/main/webapp/web/books/");
+                        if(!books.exists()){
+                            books.mkdir();
+                        }
+                        //定义输出流 将文件保存在D盘    file.getOriginalFilename()为获得文件的名字
+                        FileOutputStream os = new FileOutputStream(request.getContextPath()+"/ctp-web/src/main/webapp/web/books/"+book.getFid()+".pdf");
+                        InputStream in = file.getInputStream();
+                        int b = 0;
+                        while((b=in.read())!=-1){ //读取文件
+                            os.write(b);
+                        }
+                        os.flush(); //关闭流
+                        in.close();
+                        os.close();
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             UResponse.writeSuccess(response, ControllerReturnMsg.OPERATOR_SUCCESS.toString());
         }catch(Exception e){
             logger.error(e.getMessage());

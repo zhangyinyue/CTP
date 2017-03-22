@@ -45,7 +45,6 @@
                 <span>《漂亮朋友》</span> 强势登陆
                 敬请期待！
             </p>
-            <a href="subpage.html" style="margin-left: 50px;">更多...</a>
         </div>
 
 
@@ -55,7 +54,7 @@
                 <li>《乖，摸摸头》</li>
                 <li>《丝绸之路》</li>
             </ul>
-            <a href="subpage.html" style="margin-left: 50px;">更多...</a>
+            <a href="${basePath}appBook/book/newBooks" style="margin-left: 50px;">更多...</a>
         </div>
     </div> <!-- end of header -->
 

@@ -57,6 +57,7 @@ public enum PagePath {
 	APP_LOGIN("app/login"),
 	APP_ACCOUNT("app/myaccount"),
 	APP_REGISTER("app/register"),
+	APP_VIEWER("app/viewer"),
 	APP_BOOKS("app/books"),
 	APP_NEW_BOOKS("app/newbooks"),
 	APP_MY_BOOKS("app/mybooks"),

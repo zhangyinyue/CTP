@@ -83,7 +83,6 @@
                 <span>《漂亮朋友》</span> 强势登陆
                 敬请期待！
             </p>
-            <a href="subpage.html" style="margin-left: 50px;">更多...</a>
         </div>
         <div id="templatemo_new_books">
             <ul>
@@ -91,7 +90,7 @@
                 <li>《乖，摸摸头》</li>
                 <li>《丝绸之路》</li>
             </ul>
-            <a href="subpage.html" style="margin-left: 50px;">更多...</a>
+            <a href="${basePath}appBook/book/newBooks" style="margin-left: 50px;">更多...</a>
         </div>
     </div> <!-- end of header -->
 
@@ -101,18 +100,16 @@
             <div class="templatemo_content_left_section">
                 <h1>我的好友</h1>
                 <ul>
-                    <li><a href="#">张银约</a></li>
-                    <li><a href="#">唐唐唐</a></li>
-                    <li><a href="#">张银约</a></li>
-                    <li><a href="#">唐唐唐</a></li>
-                    <li><a href="#">张银约</a></li>
-                    <li><a href="#">唐唐唐</a></li>
-                    <li><a href="#">张银约</a></li>
-                    <li><a href="#">唐唐唐</a></li>
-                    <li><a href="#">张银约</a></li>
-                    <li><a href="#">唐唐唐</a></li>
-                    <li><a href="#">张银约</a></li>
-                    <li><a href="#">唐唐唐</a></li>
+                    <c:choose>
+                        <c:when test="${empty userPage.dataList}">
+                            <a href="${basePath}appBook/book/login" >请先登陆</a>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${userPage.dataList }" var="d">
+                                <li><a href="${basePath}appBook/book/myFriends">${d.fname}</a></li>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
         </div> <!-- end of content left -->
@@ -131,97 +128,18 @@
                         <div class="sti_slide">
                             <div class="sti_shelf_divider"></div>
 
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_1_thumb.jpg" alt="" width="110" height="150">
-                                <a href="" class="link video sti_lightbox" data-type="video-vimeo" data-size="700x394" title="Lamborghini Aventador"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_2_thumb.jpg" alt="" width="110" height="150">
-                                <a href="" class="link video sti_lightbox" data-type="video-youtube" data-size="700x420" title="Youtube Video (For The Birds / PIXAR)"></a>
-                                <a href="#" class="ribbon ribbon_green" title="Ribbon"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_3_thumb.jpg" alt="" width="110" height="150">
-                                <a href="" class="link video sti_lightbox" data-type="video-vimeo" data-size="700x394" title="Vimeo Video"></a>
-                                <a href="#" class="ribbon ribbon_red" title="Ribbon"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="image/banner_full_4_thumb.jpg" alt="" width="110" height="150">
-                                <a href="" class="link audio sti_lightbox"  data-type="audio" data-size="450x50" title="Audio Example. HTML5 Support / Flash Fallback"></a>
-                                <a href="#" class="ribbon ribbon_green" title="Ribbon"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_5_thumb.jpg" alt="" width="110" height="150">
-                                <a href="" class="link video sti_lightbox" data-type="video" data-size="540x303" title="MP4 Video. HTML5 Support / Flash Fallback"></a>
-                                <a href="#" class="ribbon ribbon_orange" title="Ribbon"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_1_thumb.jpg" alt="" width="110" height="150">
-                                <a href="" class="link zoom sti_lightbox" data-type="image" title="Lightbox image example"></a>
-                                <a href="#" class="ribbon ribbon_blue" title="Ribbon"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_2_thumb.jpg" alt="" width="110" height="150">
-                                <a href="" class="link audio sti_lightbox"  data-type="audio" data-size="450x50" title="Audio Example 2. HTML5 Support / Flash Fallback"></a>
-                            </div>
-
+                            <c:forEach items="${bookPage.dataList }" var="d" varStatus="idx">
+                                <div class="sti_prod">
+                                    <a href="${basePath}web/viewer.jsp?file=books/${d.fid}.pdf"  data-size="700x394" title="Lamborghini Aventador">
+                                        <img src="${basePath }appBook/book/image?bookId=${d.fid}" alt="" width="110" height="150">
+                                    </a>
+                                </div>
+                            </c:forEach>
                             <div class="sti_shelf_divider_bottom"></div>
                         </div>
-
-                        <!-- SLIDE GROUP 2 -->
-
-                        <div class="sti_slide">
-                            <div class="sti_shelf_divider"></div>
-
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_1_thumb.jpg" alt="" width="110" height="150">
-                                <a href="#" class="link more" title="Title"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_2_thumb.jpg" alt="" width="110" height="150">
-                                <a href="content/audio/AirReview-Landmarks-02-ChasingCorporate.mp3" class="link audio sti_lightbox"  data-type="audio" data-size="450x50" title="Audio Example. HTML5 Support / Flash Fallback"></a>
-                                <a href="#" class="ribbon ribbon_green" title="Ribbon"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_3_thumb.jpg" alt="" width="110" height="150">
-                                <a href="#" class="link more" title="Title"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_4_thumb.jpg" alt="" width="110" height="150">
-                                <a href="" class="link video sti_lightbox" data-type="video-vimeo" data-size="700x394" title="Vimeo Video"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_5_thumb.jpg" alt="" width="110" height="150">
-                                <a href="content/html/html_content.html" class="link content sti_lightbox"  data-type="html-content" data-size="550x450" title="HTML Content"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_1_thumb.jpg" alt="" width="110" height="150">
-                                <a href="#" class="link more" title="Title"></a>
-                                <a href="#" class="ribbon ribbon_red" title="Ribbon"></a>
-                            </div>
-                            <div class="sti_prod">
-                                <img src="${basePath}assets/images/banner_full_2_thumb.jpg" alt="" width="110" height="150">
-                                <a href="#" class="link more" title="Title"></a>
-                            </div>
-
-                            <div class="sti_shelf_divider_bottom"></div>
-                        </div>
-
-                        <!-- SLIDE GROUP 3 -->
                     </div><!-- sti_items -->
                 </div><!-- sti_slider -->
-
-                <%--<div class="sti_paginate">
-                    <div class="sti_page"></div>
-
-                    <div class="sti_control">
-                        <a href="#" class="sti_btn sti_play"><img src="${basePath}assets/img/play.png" alt=""></a>
-                        <a href="#" class="sti_btn sti_pause"><img src="${basePath}assets/img/pause.png" alt=""></a>
-                    </div>
-                </div>--%>
-
             </div><!-- sti_container -->
-
         </div> <!-- end of content right -->
     </div>
     <!-- end of content -->
@@ -232,7 +150,6 @@
         Copyright © 2017 <a href="${basePath}appBook/book/list"><strong>读友会</strong></a>
         <!-- Credit: www.templatemo.com -->	</div>
     <!-- end of footer -->
-    <!--  Free CSS Template www.templatemo.com -->
 </div> <!-- end of container -->
 </body>
 </html>

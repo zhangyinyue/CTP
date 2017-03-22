@@ -76,7 +76,7 @@
 								<div class="control-group">
 									<label class="control-label">出版时间<span class="required">*</span></label>
 									<div class="controls">
-										<textarea cols="50" rows="50" name="fdesc" value="${book.fdesc}"></textarea>
+										<textarea cols="160" rows="10" name="fdesc" >${book.fdesc}</textarea>
 									</div>
 								</div>
 

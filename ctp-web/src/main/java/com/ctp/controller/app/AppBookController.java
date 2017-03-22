@@ -6,8 +6,11 @@ import com.ctp.controller.config.ControllerReturnMsg;
 import com.ctp.controller.config.PagePath;
 import com.ctp.dao.base.impl.ListPage;
 import com.ctp.model.po.TBook;
+import com.ctp.model.po.TUser;
 import com.ctp.model.vo.BookVO;
+import com.ctp.model.vo.UserVO;
 import com.ctp.service.admin.inter.IAdminBookService;
+import com.ctp.service.admin.inter.IAdminUserService;
 import com.ctp.service.config.ServiceName;
 import com.ctp.service.config.SessionEnum;
 import com.ctp.utils.ContextUtils;
@@ -15,6 +18,7 @@ import com.ctp.utils.StringUtils;
 import com.ctp.utils.URequest;
 import com.ctp.utils.UResponse;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +42,8 @@ public class AppBookController {
     private Logger logger = Logger.getLogger(AdminUserController.class);
     @Resource(name = ServiceName.ADMIN_BOOK)
     private IAdminBookService adminBookService;
+    @Resource(name = ServiceName.ADMIN_USER)
+    private IAdminUserService userService;
 
     /**
      * 跳转到书籍列表
@@ -55,6 +61,15 @@ public class AppBookController {
         book.setSort(false);
         ListPage listPage = adminBookService.queryBookByPage(book);
         request.setAttribute("listPage", listPage);
+
+        UserVO user = new UserVO();
+        user.setPageSize(10);
+        TUser tUser = (TUser) URequest.getSession(request,SessionEnum.APPUSER.toString());
+        if (tUser != null) {
+            user.setId(tUser.getFid());
+        }
+        ListPage userPage = userService.getFriends(user);
+        request.setAttribute("userPage", userPage);
         return PagePath.APP_BOOK_LIST.toString();
     }
 
@@ -99,6 +114,17 @@ public class AppBookController {
         if (URequest.getSession(request, SessionEnum.APPUSER.toString()) == null ) {
             return PagePath.APP_LOGIN.toString();
         }
+
+        UserVO user = new UserVO();
+        user.setPageSize(10);
+        TUser tUser = (TUser) URequest.getSession(request,SessionEnum.APPUSER.toString());
+        if (tUser != null) {
+            user.setId(tUser.getFid());
+        }
+        ListPage bookPage = adminBookService.getMyBooks(user.getId());
+        ListPage userPage = userService.getFriends(user);
+        request.setAttribute("userPage", userPage);
+        request.setAttribute("bookPage", bookPage);
         return PagePath.APP_MY_BOOKS.toString();
     }
 
@@ -112,7 +138,16 @@ public class AppBookController {
 
     @RequestMapping(value=ControllerName.APP_BOOK_DETAIL,method={RequestMethod.GET,RequestMethod.POST})
     public String toSubPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
-
+       TBook tBook = adminBookService.getBook(book.getId());
+        request.setAttribute("book",tBook);
+        UserVO user = new UserVO();
+        user.setPageSize(10);
+        TUser tUser = (TUser) URequest.getSession(request,SessionEnum.APPUSER.toString());
+        if (tUser != null) {
+            user.setId(tUser.getFid());
+        }
+        ListPage userPage = userService.getFriends(user);
+        request.setAttribute("userPage", userPage);
         return PagePath.APP_BOOK_DETAIL.toString();
     }
 

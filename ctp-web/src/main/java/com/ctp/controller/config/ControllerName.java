@@ -42,6 +42,7 @@ public interface ControllerName {
 	String APP_LOGIN = "book/login";
 	String APP_ACCOUNT = "book/myAccount";
 	String APP_REGISTER = "book/register";
+	String APP_VIEWER = "book/viewer";
 	String APP_BOOKS = "book/books";
 	String APP_NEW_BOOKS = "book/newBooks";
 	String APP_MY_BOOKS = "book/myBooks";

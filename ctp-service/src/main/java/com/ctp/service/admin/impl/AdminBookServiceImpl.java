@@ -12,8 +12,10 @@ import com.ctp.service.config.ReturnMsg;
 import com.ctp.service.config.ServiceName;
 import com.ctp.utils.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -74,11 +76,9 @@ public class AdminBookServiceImpl implements IAdminBookService{
         if(book.getImagefile() != null){
             book.setFimage(book.getImagefile().getBytes());
         }
-        if(book.getFile() != null){
-            book.setFcontent(book.getFile().getBytes());
-        }
+
+        book.setFcreatedate(new Date().getTime()/1000);
         if(StringUtils.isEmpty(book.getFid())){
-            book.setFcreatedate(new Date().getTime()/1000);
             bookDao.saveBook(book);
         }else{
             bookDao.update(book);
@@ -86,10 +86,34 @@ public class AdminBookServiceImpl implements IAdminBookService{
 
     }
 
+
+
     @Override
     public String deleteBook(BookVO book) {
         String delBook = " DELETE TBook b where b.fid in ( "+ book.getIdsStr()+" )";
         bookDao.deleteBook(delBook, null);
         return ReturnMsg.DEL_SUCCESS.toString();
+    }
+
+    @Override
+    public ListPage getMyBooks(String userId) {
+
+        PageParam page = new PageParam();
+        StringBuilder query = new StringBuilder();
+        StringBuilder count = new StringBuilder();
+        Map<String, Object> params = new HashMap<>();
+
+        query.append("SELECT b FROM TBook b WHERE  b.fid in ( ")
+                .append("SELECT bl.fbookID FROM TBookList bl WHERE bl.fuserID = '").append(userId).append(" ') ");
+        count.append("SELECT COUNT(b.fid) FROM TBook b WHERE b.fid in ( ")
+                .append("SELECT bl.fbookID FROM TBookList bl WHERE bl.fuserID = '").append(userId).append(" ') ");
+
+        page.setPageNo(1);
+        page.setPageSize(10);
+        page.setQuery(query.toString());
+        page.setCount(count.toString());
+        page.setParams(params);
+
+        return bookDao.queryByPage(page);
     }
 }

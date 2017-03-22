@@ -29,4 +29,6 @@ public interface IAdminBookService {
     void saveBook(TBook book);
 
     String deleteBook(BookVO book);
+
+    ListPage getMyBooks(String userId);
 }

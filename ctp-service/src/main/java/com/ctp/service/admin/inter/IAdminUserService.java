@@ -71,4 +71,11 @@ public interface IAdminUserService {
 	 * @return
 	 */
 	TUser getUser(String userId);
+
+	/**
+	 * 获取好友列表
+	 * @param userId
+	 * @return
+	 */
+	ListPage getFriends(UserVO user);
 }
