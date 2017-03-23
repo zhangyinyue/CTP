@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 
 /**
@@ -119,14 +121,14 @@ public class AdminBookController {
                         //定义输出流 将文件保存在D盘    file.getOriginalFilename()为获得文件的名字
                         FileOutputStream os = new FileOutputStream(request.getContextPath()+"/ctp-web/src/main/webapp/web/books/"+book.getFid()+".pdf");
                         InputStream in = file.getInputStream();
-                        int b = 0;
-                        while((b=in.read())!=-1){ //读取文件
-                            os.write(b);
-                        }
-                        os.flush(); //关闭流
+
+                        FileChannel fc = os.getChannel();
+                        FileChannel fin = (FileChannel) Channels.newChannel(in);
+                        fin.transferTo(0,fin.size(),fc);
+                        fin.close();
+                        fc.close();
                         in.close();
                         os.close();
-
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
