@@ -4,6 +4,7 @@ import com.ctp.dao.base.impl.ListPage;
 import com.ctp.model.po.TAuth;
 import com.ctp.model.po.TRole;
 import com.ctp.model.po.TUser;
+import com.ctp.model.po.TUserList;
 import com.ctp.model.vo.PageParam;
 
 /**
@@ -51,4 +52,16 @@ public interface IUserDao {
 	 * @return
 	 */
 	TUser getUser(String userId);
+
+	/**
+	 * 删除好友
+	 * @param userId
+	 */
+	void delFriend(String userId,String friendId);
+
+	/**
+	 * 添加好友
+	 * @param userList
+	 */
+	void addFriend(TUserList userList);
 }

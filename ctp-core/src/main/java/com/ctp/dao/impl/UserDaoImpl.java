@@ -2,6 +2,7 @@ package com.ctp.dao.impl;
 
 import javax.annotation.Resource;
 
+import com.ctp.model.po.TUserList;
 import org.springframework.stereotype.Repository;
 
 import com.ctp.dao.base.impl.ListPage;
@@ -50,5 +51,15 @@ public class UserDaoImpl implements IUserDao {
 	public TUser getUser(String userId) {
 		return baseDao.get(TUser.class, userId);
 	}
-	
+
+	@Override
+	public void delFriend(String userId,String friendId) {
+		baseDao.deleteByHql("DELETE FROM TUserList ul WHERE ul.fuserID = "+userId+" AND ul.ffriendID = "+friendId);
+	}
+
+	@Override
+	public void addFriend(TUserList userList) {
+		baseDao.save(userList);
+	}
+
 }

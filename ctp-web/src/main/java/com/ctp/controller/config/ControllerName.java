@@ -55,4 +55,6 @@ public interface ControllerName {
 	String APP_USER_DEL = "user/del";
 	String APP_USER_LOGIN = "user/login";
 	String APP_USER_LOGOUT = "user/logout";			//登出操作
+	String APP_FRIEND_ADD = "user/addfriend";
+	String APP_FRIEND_DEL = "user/delfriend";
 }

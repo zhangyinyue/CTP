@@ -3,6 +3,7 @@ package com.ctp.dao.inter;
 import com.ctp.dao.base.impl.ListPage;
 import com.ctp.model.po.TBook;
 import com.ctp.model.po.TBookList;
+import com.ctp.model.po.TBookReview;
 import com.ctp.model.vo.PageParam;
 
 /**
@@ -43,4 +44,10 @@ public interface IBookDao {
      * @param bookList
      */
     void saveBookList(TBookList bookList);
+
+    /**
+     * 保存书评
+     * @param bookReview
+     */
+    void saveBookReview(TBookReview bookReview);
 }

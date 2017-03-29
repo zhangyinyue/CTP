@@ -6,6 +6,7 @@ import com.ctp.controller.config.ControllerReturnMsg;
 import com.ctp.controller.config.PagePath;
 import com.ctp.dao.base.impl.ListPage;
 import com.ctp.model.po.TUser;
+import com.ctp.model.po.TUserList;
 import com.ctp.model.vo.BookVO;
 import com.ctp.model.vo.UserVO;
 import com.ctp.service.admin.inter.IAdminUserService;
@@ -70,4 +71,25 @@ public class AppUserController {
         URequest.removeSession(requset, SessionEnum.APPUSER.toString());
         return "redirect:/appBook/book/list";
     }
+
+    /**
+     * 保存好友
+     * @param userList
+     */
+    @RequestMapping(value=ControllerName.APP_FRIEND_ADD,method=RequestMethod.GET)
+    public String toFriendSave(TUserList userList, HttpServletResponse response){
+        userService.addFriend(userList);
+        return  "redirect:/appBook/book/myFriends";
+    }
+
+    /**
+     * 删除好友
+     * @param userList
+     */
+    @RequestMapping(value=ControllerName.APP_FRIEND_DEL,method=RequestMethod.GET)
+    public String toFriendDel(TUserList userList, HttpServletResponse response){
+        userService.delFriend(userList.getFfriendID());
+        return  "redirect:/appBook/book/myFriends";
+    }
+
 }

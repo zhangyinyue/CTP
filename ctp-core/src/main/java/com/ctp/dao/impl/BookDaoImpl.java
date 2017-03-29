@@ -6,6 +6,7 @@ import com.ctp.dao.config.DaoName;
 import com.ctp.dao.inter.IBookDao;
 import com.ctp.model.po.TBook;
 import com.ctp.model.po.TBookList;
+import com.ctp.model.po.TBookReview;
 import com.ctp.model.vo.PageParam;
 import org.springframework.stereotype.Repository;
 
@@ -48,5 +49,10 @@ public class BookDaoImpl implements IBookDao{
     @Override
     public void saveBookList(TBookList bookList){
         baseDao.save(bookList);
+    }
+
+    @Override
+    public void saveBookReview(TBookReview bookReview) {
+        baseDao.save(bookReview);
     }
 }

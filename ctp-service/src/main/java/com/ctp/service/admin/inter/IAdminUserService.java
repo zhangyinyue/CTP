@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ctp.dao.base.impl.ListPage;
 import com.ctp.model.po.TAuth;
 import com.ctp.model.po.TUser;
+import com.ctp.model.po.TUserList;
 import com.ctp.model.vo.AuthTreeVO;
 import com.ctp.model.vo.AuthVO;
 import com.ctp.model.vo.RoleVO;
@@ -74,8 +75,20 @@ public interface IAdminUserService {
 
 	/**
 	 * 获取好友列表
-	 * @param userId
+	 * @param user
 	 * @return
 	 */
 	ListPage getFriends(UserVO user);
+
+	/**
+	 * 删除好友
+	 * @param friendId
+	 */
+	void delFriend(String friendId);
+
+	/**
+	 * 添加好友
+	 * @param userList
+	 */
+	void addFriend(TUserList userList);
 }

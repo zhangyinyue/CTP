@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ctp.model.po.TRole;
+import com.ctp.model.po.TUserList;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -225,6 +226,21 @@ public class AdminUserServiceImpl implements IAdminUserService {
 		page.setParams(params);
 
 		return userDao.queryByPage(page);
+	}
+
+	@Override
+	public void delFriend(String friendId) {
+		TUser user = (TUser) ContextUtils.getRequest().getSession().getAttribute(SessionEnum.APPUSER.toString());
+		userDao.delFriend(user.getFid(),friendId);
+	}
+
+	@Override
+	public void addFriend(TUserList userList) {
+		TUser user = (TUser) ContextUtils.getRequest().getSession().getAttribute(SessionEnum.APPUSER.toString());
+		if (user != null) {
+			userList.setFuserID(user.getFid());
+		}
+		userDao.addFriend(userList);
 	}
 
 

@@ -133,6 +133,13 @@ public class AppBookController {
         if (URequest.getSession(request, SessionEnum.APPUSER.toString()) == null ) {
             return PagePath.APP_LOGIN.toString();
         }
+        TUser tUser = (TUser) URequest.getSession(request,SessionEnum.APPUSER.toString());
+        UserVO user = new UserVO();
+        if (tUser != null) {
+            user.setId(tUser.getFid());
+        }
+        ListPage userPage = userService.getFriends(user);
+        request.setAttribute("userPage", userPage);
         return PagePath.APP_MY_FRIENDS.toString();
     }
 
