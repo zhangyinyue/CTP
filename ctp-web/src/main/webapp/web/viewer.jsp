@@ -46,8 +46,21 @@ See https://github.com/adobe-type-tools/cmap-resources
 
     <script src="debugger.js"></script>
     <script src="viewer.js"></script>
+    <script>
+        function formsubmit() {
+            alert();
+        }
+    </script>
 </head>
 <body tabindex="1" class="loadingInProgress">
+<div>
+    <form action="${basePath }adminUser/user/safety" method="post">
+        <span style="color: white">书评：</span></span><textarea style="margin-top: 50px" rows="10" cols="50" name="fdesc"></textarea><br/>
+        <span style="color: white">评分：</span><input type="number" name="fscore"><span style="color: white">分</span>
+        <input type="button" onclick="javascript:formsubmit()" value="提交">
+    </form>
+
+</div>
 <div id="outerContainer">
     <div id="sidebarContainer">
         <div id="toolbarSidebar">

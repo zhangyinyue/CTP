@@ -37,6 +37,26 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>org.apache.mahout</groupId>
+				<artifactId>mahout-core</artifactId>
+				<version>0.9</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.mahout</groupId>
+				<artifactId>mahout-integration</artifactId>
+				<version>0.9</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.mahout</groupId>
+				<artifactId>mahout-math</artifactId>
+				<version>0.9</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.mahout</groupId>
+				<artifactId>mahout-examples</artifactId>
+				<version>0.9</version>
+			</dependency>
+			<dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
 				<version>1.2</version>
