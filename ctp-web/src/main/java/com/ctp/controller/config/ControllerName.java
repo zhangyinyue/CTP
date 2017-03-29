@@ -37,6 +37,7 @@ public interface ControllerName {
 	String ADMIN_BOOK_VIEW_IMAGE = "/book/image";
 	String ADMIN_BOOK_VIEW_FILE = "/book/file";
 
+
 	String APP_BOOK = "appBook";
 	String APP_BOOK_LIST = "/book/list";
 	String APP_LOGIN = "book/login";
@@ -48,6 +49,7 @@ public interface ControllerName {
 	String APP_MY_BOOKS = "book/myBooks";
 	String APP_MY_FRIENDS = "book/myFriends";
 	String APP_BOOK_DETAIL = "book/subpage";
+	String APP_ADD_MYBOOK = "book/addmyboos";
 
 	String APP_USER = "appUser";
 	String APP_USER_LIST = "user/list";

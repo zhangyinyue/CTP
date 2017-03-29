@@ -6,6 +6,7 @@ import com.ctp.controller.config.ControllerReturnMsg;
 import com.ctp.controller.config.PagePath;
 import com.ctp.dao.base.impl.ListPage;
 import com.ctp.model.po.TBook;
+import com.ctp.model.po.TBookList;
 import com.ctp.model.po.TUser;
 import com.ctp.model.vo.BookVO;
 import com.ctp.model.vo.UserVO;
@@ -138,8 +139,8 @@ public class AppBookController {
         if (tUser != null) {
             user.setId(tUser.getFid());
         }
-        ListPage userPage = userService.getFriends(user);
-        request.setAttribute("userPage", userPage);
+        ListPage friendPage = userService.getFriends(user);
+        request.setAttribute("friendPage", friendPage);
         return PagePath.APP_MY_FRIENDS.toString();
     }
 
@@ -155,6 +156,8 @@ public class AppBookController {
         }
         ListPage userPage = userService.getFriends(user);
         request.setAttribute("userPage", userPage);
+        ListPage bookReviews =  adminBookService.getBookReviews(book.getId());
+        request.setAttribute("bookReviews", bookReviews);
         return PagePath.APP_BOOK_DETAIL.toString();
     }
 
@@ -198,6 +201,19 @@ public class AppBookController {
             sos.close();
         }
 
+    }
+
+    /**
+     * 加入书架
+     * @param bookList
+     * @return
+     */
+    @RequestMapping(value=ControllerName.APP_ADD_MYBOOK,method=RequestMethod.POST)
+    public String toAddMyBooks(TBookList bookList, HttpServletResponse response){
+        HttpServletRequest request = ContextUtils.getRequest();
+        adminBookService.addMyBook(bookList);
+
+        return "redirect:/appBook/book/myBooks";
     }
 
 }

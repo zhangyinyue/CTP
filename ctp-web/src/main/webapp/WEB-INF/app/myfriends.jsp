@@ -57,20 +57,21 @@
             <li class="potions"><img class="table-header-logo" src="${basePath}assets/images/option.png" alt="管理">管理</li>
         </ul>
         <div class="table-body">
-            <ul class="table-item">
+            <%--<ul class="table-item">
                 <li class="name">喵了个咪</li>
                 <li class="read">《我摸到一条鲸鱼》</li>
                 <li class="potions">
                     <a>取消关注</a>
                 </li>
-            </ul>
-            <ul class="table-item">
-                <li class="name">喵了个咪</li>
-                <li class="read">《我摸到一条鲸鱼》</li>
-                <li class="potions">
-                    <a>取消关注</a>
-                </li>
-            </ul>
+            </ul>--%>
+            <c:forEach items="${friendPage.dataList }" var="d">
+                <ul class="table-item">
+                    <li class="name">${d.fname}</li>
+                    <li class="potions">
+                        <a href="${basePath}appUser/user/delfriend?ffriendID=${d.fid}">取消关注</a>
+                    </li>
+                </ul>
+            </c:forEach>
         </div>
     </div> <!-- end of content -->
     <div id="templatemo_footer">

@@ -96,7 +96,7 @@
                         <p>${d.fdesc}</p>
                         <p>出版社：${d.fpublish}</p>
                         <p>出版时间：${fns:dateFormat(d.fpublishyear) }</p>
-                        <div class="buy_now_button" style="margin-left: -20px;"><a href="subpage.html">加入书架</a></div>
+                        <div class="buy_now_button" style="margin-left: -20px;"><a href="${basePath}appBook/book/addmyboos?fbookID=${d.fid}">加入书架</a></div>
                         <div class="detail_button" style="margin-top: -36px;margin-left: 85px;"><a href="${basePath}appBook/book/subpage?id=${d.fid}">详情</a></div>
                     </div>
                     <div class="cleaner">&nbsp;</div>
