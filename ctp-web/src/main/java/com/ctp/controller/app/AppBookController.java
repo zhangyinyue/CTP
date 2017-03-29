@@ -120,6 +120,7 @@ public class AppBookController {
         TUser tUser = (TUser) URequest.getSession(request,SessionEnum.APPUSER.toString());
         if (tUser != null && (user.getId() == null || "".equals(user.getId()))) {
             user.setId(tUser.getFid());
+            URequest.removeSession(request,"friend");
         }else{//好友的书架
             TUser friend = userService.getUser(user.getId());
             URequest.setSession(request,"friend",friend);
@@ -213,7 +214,7 @@ public class AppBookController {
      * @param bookList
      * @return
      */
-    @RequestMapping(value=ControllerName.APP_ADD_MYBOOK,method=RequestMethod.POST)
+    @RequestMapping(value=ControllerName.APP_ADD_MYBOOK,method=RequestMethod.GET)
     public String toAddMyBooks(TBookList bookList, HttpServletResponse response){
         HttpServletRequest request = ContextUtils.getRequest();
         adminBookService.addMyBook(bookList);

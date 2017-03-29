@@ -12,6 +12,9 @@ import com.ctp.dao.inter.IUserDao;
 import com.ctp.model.po.TUser;
 import com.ctp.model.vo.PageParam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *  用户，包括对账户，地址，认证、商店的操作的dao
  *	@auther zyy
@@ -54,7 +57,10 @@ public class UserDaoImpl implements IUserDao {
 
 	@Override
 	public void delFriend(String userId,String friendId) {
-		baseDao.deleteByHql("DELETE FROM TUserList ul WHERE ul.fuserID = "+userId+" AND ul.ffriendID = "+friendId);
+		Map<String,Object> parm = new HashMap<>();
+		parm.put("userId",userId);
+		parm.put("friendId",friendId);
+		baseDao.deleteByHql("DELETE FROM TUserList ul WHERE ul.fuserID = :userId AND ul.ffriendID = :friendId ",parm);
 	}
 
 	@Override

@@ -148,7 +148,7 @@ public class AdminBookServiceImpl implements IAdminBookService{
         Map<String, Object> params = new HashMap<>();
 
         query.append("SELECT br,u FROM TBookReview br,TUser u WHERE  b.fuserID = u.fid AND  br.fbookID = :bookId ");
-        count.append("SELECT COUNT(br.fid) FROM TBookReview br,TUser u WHERE  b.fuserID = u.fid AND  br.fbookID = :bookId ");
+        count.append("SELECT COUNT(br.fid) FROM TBookReview br,TUser u WHERE  br.fuserID = u.fid AND  br.fbookID = :bookId ");
         params.put("bookId",bookId);
         page.setPageNo(1);
         page.setPageSize(10);

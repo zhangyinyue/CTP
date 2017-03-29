@@ -68,7 +68,7 @@
                 <ul class="table-item">
                     <li class="name">${d.fname}</li>
                     <li class="potions">
-                        <a href="${basePath}appBook/book/myBooks?fid=${d.fid}">查看书架</a>
+                        <a href="${basePath}appBook/book/myBooks?id=${d.fid}">查看书架</a>
                     </li>
                     <li class="potions">
                     <a href="${basePath}appUser/user/delfriend?ffriendID=${d.fid}">取消关注</a>
