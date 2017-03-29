@@ -117,7 +117,14 @@
         <!--内容-->
         <div class="templatemo_content_right">
             <div class="title"><span class="title_icon"><img src="${basePath}assets/images/books_1.png" alt="" title=""></span>
-                我的书架</div>
+                <c:choose>
+                    <c:when test="${empty sessionScope.friend}">
+                       我
+                    </c:when>
+                    <c:otherwise>
+                        ${sessionScope.friend.fname}
+                    </c:otherwise>
+                </c:choose>的书架</div>
             <!-- 书架-->
             <div class="sti_container" id="ex_shelf_full" style="margin-top:50px;">
                 <div class="sti_slider">

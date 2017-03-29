@@ -111,18 +111,23 @@ public class AppBookController {
     }
 
     @RequestMapping(value=ControllerName.APP_MY_BOOKS,method={RequestMethod.GET,RequestMethod.POST})
-    public String toMyBooksPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+    public String toMyBooksPage(HttpServletRequest request, HttpServletResponse response, UserVO user){
         if (URequest.getSession(request, SessionEnum.APPUSER.toString()) == null ) {
             return PagePath.APP_LOGIN.toString();
         }
 
-        UserVO user = new UserVO();
         user.setPageSize(10);
         TUser tUser = (TUser) URequest.getSession(request,SessionEnum.APPUSER.toString());
-        if (tUser != null) {
+        if (tUser != null && (user.getId() == null || "".equals(user.getId()))) {
             user.setId(tUser.getFid());
+        }else{//好友的书架
+            TUser friend = userService.getUser(user.getId());
+            URequest.setSession(request,"friend",friend);
         }
         ListPage bookPage = adminBookService.getMyBooks(user.getId());
+        if (tUser != null ) {
+            user.setId(tUser.getFid());
+        }
         ListPage userPage = userService.getFriends(user);
         request.setAttribute("userPage", userPage);
         request.setAttribute("bookPage", bookPage);
