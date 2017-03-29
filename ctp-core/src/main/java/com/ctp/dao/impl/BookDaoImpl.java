@@ -5,7 +5,7 @@ import com.ctp.dao.base.inter.IBaseDao;
 import com.ctp.dao.config.DaoName;
 import com.ctp.dao.inter.IBookDao;
 import com.ctp.model.po.TBook;
-import com.ctp.model.po.TUser;
+import com.ctp.model.po.TBookList;
 import com.ctp.model.vo.PageParam;
 import org.springframework.stereotype.Repository;
 
@@ -43,5 +43,10 @@ public class BookDaoImpl implements IBookDao{
     @Override
     public void deleteBook(String delBook,String bookId) {
         baseDao.deleteByHql(delBook, bookId);
+    }
+
+    @Override
+    public void saveBookList(TBookList bookList){
+        baseDao.save(bookList);
     }
 }

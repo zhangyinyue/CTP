@@ -2,6 +2,7 @@ package com.ctp.dao.inter;
 
 import com.ctp.dao.base.impl.ListPage;
 import com.ctp.model.po.TBook;
+import com.ctp.model.po.TBookList;
 import com.ctp.model.vo.PageParam;
 
 /**
@@ -36,4 +37,10 @@ public interface IBookDao {
     void update(TBook book);
 
     void deleteBook(String delBook,String bookId);
+
+    /**
+     * 添加到书架
+     * @param bookList
+     */
+    void saveBookList(TBookList bookList);
 }
