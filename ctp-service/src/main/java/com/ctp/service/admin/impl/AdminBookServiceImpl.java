@@ -136,6 +136,7 @@ public class AdminBookServiceImpl implements IAdminBookService{
         if (user != null) {
             bookReview.setFuserID(user.getFid());
         }
+        bookReview.setFdate(System.currentTimeMillis());
         bookDao.saveBookReview(bookReview);
     }
 

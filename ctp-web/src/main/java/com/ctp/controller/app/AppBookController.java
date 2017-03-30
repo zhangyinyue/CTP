@@ -7,6 +7,7 @@ import com.ctp.controller.config.PagePath;
 import com.ctp.dao.base.impl.ListPage;
 import com.ctp.model.po.TBook;
 import com.ctp.model.po.TBookList;
+import com.ctp.model.po.TBookReview;
 import com.ctp.model.po.TUser;
 import com.ctp.model.vo.BookVO;
 import com.ctp.model.vo.UserVO;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,6 +47,8 @@ public class AppBookController {
     private IAdminBookService adminBookService;
     @Resource(name = ServiceName.ADMIN_USER)
     private IAdminUserService userService;
+    @Resource(name="dataSource")
+    private DataSource dataSource;
 
     /**
      * 跳转到书籍列表
@@ -215,11 +219,22 @@ public class AppBookController {
      * @return
      */
     @RequestMapping(value=ControllerName.APP_ADD_MYBOOK,method=RequestMethod.GET)
-    public String toAddMyBooks(TBookList bookList, HttpServletResponse response){
-        HttpServletRequest request = ContextUtils.getRequest();
+    public String toAddMyBooks(TBookList bookList,HttpServletRequest request,HttpServletResponse response){
         adminBookService.addMyBook(bookList);
 
         return "redirect:/appBook/book/myBooks";
+    }
+
+    /**
+     * 添加书评
+     * @param bookReview
+     * @return
+     */
+    @RequestMapping(value=ControllerName.APP_ADD_BOOKREVIEW,method=RequestMethod.GET)
+    public void toAddBookReview(TBookReview bookReview,HttpServletRequest request,HttpServletResponse response){
+        adminBookService.addBookReview(bookReview);
+        UResponse.writeSuccess(response, "评分成功");
+
     }
 
 }

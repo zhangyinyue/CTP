@@ -6,28 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.ctp.utils.URequest"%>
+<%@taglib prefix="fns" uri="/WEB-INF/fns.tld" %>
+<%
+    String basePath = URequest.getBasePath(request);
+    request.setAttribute("basePath", basePath);
+
+%>
 <!DOCTYPE html>
-<!--
-Copyright 2012 Mozilla Foundation
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-Adobe CMap resources are covered by their own copyright but the same license:
-
-Copyright 1990-2015 Adobe Systems Incorporated.
-
-See https://github.com/adobe-type-tools/cmap-resources
--->
 <html dir="ltr" mozdisallowselectionprint moznomarginboxes>
 <head>
     <meta charset="utf-8">
@@ -43,18 +31,30 @@ See https://github.com/adobe-type-tools/cmap-resources
     <link rel="resource" type="application/l10n" href="locale/locale.properties" />
     <script src="l10n.js"></script>
     <script src="../build/pdf.js"></script>
-
+    <script src="../assets/plugins/jquery-1.10.1.min.js"></script>
     <script src="debugger.js"></script>
     <script src="viewer.js"></script>
     <script>
+
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
         function formsubmit() {
-            alert();
+            var fdesc = $("input[name='fdesc']").val();
+            var fscore = $("input[name='fscore']").val();
+            var fbookID = GetQueryString(file);
+            $.post("${basePath }",{fbookID:fbookID,fdesc:fdesc,fscore:fscore},function(result){
+               alert(result);
+            });
         }
     </script>
 </head>
 <body tabindex="1" class="loadingInProgress">
 <div>
-    <form action="${basePath }adminUser/user/safety" method="post">
+    <form action="" method="post">
         <span style="color: white">书评：</span></span><textarea style="margin-top: 50px" rows="10" cols="50" name="fdesc"></textarea><br/>
         <span style="color: white">评分：</span><input type="number" name="fscore"><span style="color: white">分</span>
         <input type="button" onclick="javascript:formsubmit()" value="提交">
