@@ -122,14 +122,14 @@
             <p>简介：${book.fdesc}</p>
 
 
-
+            <div class="buy_now_button" style="margin-left: 150px;"><a href="${basePath}appBook/book/addmyboos?fbookID=${book.fid}">加入书架</a></div>
             <div class="cleaner_with_height">&nbsp;</div>
 
             <!--评论-->
             <div id="demo" class="demolayout">
                 <ul id="demo-nav" class="demolayout">
                     <li class="active" ><a href="#tab1">短评</a></li>
-                    <li><a href="#tab2">相关书籍</a></li>
+                   <%-- <li><a href="#tab2">相关书籍</a></li>--%>
                 </ul>
                 <div class="tabs-container">
                     <div style="display: block;" class="tab" id="tab1">
@@ -139,15 +139,30 @@
                                 <p class="item-userinfo">
                                     <span class="name">${d[1].fname}</span> <span>${fns:dateFormat(d[0].fdate/1000)}</span><a href="javascript:addFriend('${d[1].fid}');">加为好友</a>
                                 </p>
+                                <p class="item-content">评分：${d[0].fscore}</p>
                                 <p class="item-content">${d[0].fdesc}</p>
                             </div>
                         </c:forEach>
 
                     </div>
-                    <div style="display: none;" class="tab" id="tab2">
-                        就是喜欢李
+                    <%--<div style="display: none;" class="tab" id="tab2">
+                        <c:choose>
+                            <c:when test="${empty sessionScope.appUser}">
+                                <a href="${basePath}appBook/book/login" >请先登陆</a>
+                            </c:when>
+                            <c:when test="${empty xgbooks}">
+                                欢迎来到读友会，请您多多享受查阅书籍的乐趣~
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach items="${xgbooks}" var="d">
+                                    <img src="${basePath }appBook/book/image?bookId=${d.fid}" alt="CSS Template" width="100"
+                                         height="150"/>
+                                    <li><a href="${basePath}appBook/book/subpage?id=${d.fid}">${d.fname}</a></li>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
                         <div class="clear"></div>
-                    </div>
+                    </div>--%>
                 </div>
             </div>
 

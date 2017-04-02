@@ -18,15 +18,19 @@ import com.ctp.utils.URequest;
 import com.ctp.utils.UResponse;
 import org.apache.log4j.Logger;
 import org.apache.mahout.cf.taste.common.TasteException;
+import org.apache.mahout.cf.taste.eval.RecommenderBuilder;
 import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.model.jdbc.MySQLJDBCDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
+import org.apache.mahout.cf.taste.impl.recommender.GenericItemBasedRecommender;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.EuclideanDistanceSimilarity;
+import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.apache.mahout.cf.taste.recommender.Recommender;
+import org.apache.mahout.cf.taste.similarity.ItemSimilarity;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
@@ -200,7 +204,32 @@ public class AppBookController {
             books.add(adminBookService.getBook(String.valueOf(item.getItemID())));
         }
         request.setAttribute("reviewBooks", books);
+        //推荐相关书籍
+       /* List<RecommendedItem> items = recommendItems(tUser == null ? 0:tUser.getFid());
+        List<TBook> xgbooks = new ArrayList<>();
+        for(RecommendedItem item : items){
+            xgbooks.add(adminBookService.getBook(String.valueOf(item.getItemID())));
+        }
+        request.setAttribute("xgbooks", xgbooks);*/
         return PagePath.APP_BOOK_DETAIL.toString();
+    }
+
+    private List<RecommendedItem> recommendItems(Long userId) throws TasteException {
+        DataModel model = new MySQLJDBCDataModel(dataSource,"t_book_review","fuser_id","fbook_id","fscore","fdate");
+// Build the same recommender for testing that we did last time:
+        RecommenderBuilder recommenderBuilder = new RecommenderBuilder() {
+            @Override
+            public Recommender buildRecommender(DataModel model) throws TasteException {
+                ItemSimilarity similarity = new PearsonCorrelationSimilarity(model);
+                return new GenericItemBasedRecommender(model, similarity);
+            }
+        };
+        //获取推荐结果
+        List<RecommendedItem> recommendations = new ArrayList<>();
+        if(userId != 0){
+            recommendations = recommenderBuilder.buildRecommender(model).recommend(userId, 4);
+        }
+        return recommendations;
     }
 
     /**
