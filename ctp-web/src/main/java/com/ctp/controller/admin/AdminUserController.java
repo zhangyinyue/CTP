@@ -127,7 +127,7 @@ public class AdminUserController {
 	@RequestMapping(value=ControllerName.ADMIN_USER_EDIT,method=RequestMethod.POST)
 	public String toUserEditPage(UserVO user){
 		HttpServletRequest request = ContextUtils.getRequest();
-		TUser tuser = adminUserService.getUser(user.getId());
+		TUser tuser = adminUserService.getUser(String.valueOf(user.getId()));
 		tuser = tuser == null ? tuser = new TUser() : tuser;
 		request.setAttribute("user",tuser);
 		return PagePath.USER_EDIT.toString();

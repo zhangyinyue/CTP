@@ -71,16 +71,26 @@
             <div class="templatemo_content_left_section">
                 <h1>猜你喜欢</h1>
                 <ul>
-                    <li><a href="subpage.html">《巨人的陨落》</a></li>
-                    <li><a href="subpage.html">《乖，摸摸头》</a></li>
-
+                    <c:choose>
+                        <c:when test="${empty sessionScope.appUser}">
+                            <a href="${basePath}appBook/book/login" >请先登陆</a>
+                        </c:when>
+                        <c:when test="${empty reviewBooks}">
+                            欢迎来到读友会，请您多多享受查阅书籍的乐趣~
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${reviewBooks}" var="d">
+                                <li><a href="${basePath}appBook/book/subpage?id=${d.fid}">${d.fname}</a></li>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
             <div class="templatemo_content_left_section">
                 <h1>我的好友</h1>
                 <ul>
                     <c:choose>
-                        <c:when test="${empty userPage.dataList}">
+                        <c:when test="${empty sessionScope.appUser}">
                             <a href="${basePath}appBook/book/login" >请先登陆</a>
                         </c:when>
                         <c:otherwise>

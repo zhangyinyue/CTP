@@ -1,3 +1,10 @@
+alter table t_book change fid fid BIGINT(20) not null auto_increment;
+alter table t_book auto_increment=1;
+
+alter table t_user change fid fid BIGINT(20) not null auto_increment;
+alter table t_user auto_increment=1;
+
+
 drop database ctp;
 create database ctp;
 

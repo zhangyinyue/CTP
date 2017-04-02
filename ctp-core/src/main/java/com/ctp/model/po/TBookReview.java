@@ -15,11 +15,11 @@ public class TBookReview {
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String fid;
     @Column(name="fuser_id")
-    private String fuserID;
+    private long fuserID;
     @Column(name="fbook_id")
-    private String fbookID;
+    private long fbookID;
     private String fdesc;
-    private String fscore;
+    private float fscore;
     private long fdate;
 
     public String getFid() {
@@ -30,19 +30,19 @@ public class TBookReview {
         this.fid = fid;
     }
 
-    public String getFuserID() {
+    public long getFuserID() {
         return fuserID;
     }
 
-    public void setFuserID(String fuserID) {
+    public void setFuserID(long fuserID) {
         this.fuserID = fuserID;
     }
 
-    public String getFbookID() {
+    public long getFbookID() {
         return fbookID;
     }
 
-    public void setFbookID(String fbookID) {
+    public void setFbookID(long fbookID) {
         this.fbookID = fbookID;
     }
 
@@ -54,11 +54,11 @@ public class TBookReview {
         this.fdesc = fdesc;
     }
 
-    public String getFscore() {
+    public float getFscore() {
         return fscore;
     }
 
-    public void setFscore(String fscore) {
+    public void setFscore(float fscore) {
         this.fscore = fscore;
     }
 

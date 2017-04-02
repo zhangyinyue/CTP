@@ -52,7 +52,7 @@
 									<label class="control-label">性别</label>
 									<div class="controls">
 										<select name="fsex">
-											<option value="1" "${user.fsex == 1 ? "selected":"}>男</option>
+											<option value="1" ${user.fsex == 1 ? "selected":""}>男</option>
 											<option value="0"  ${user.fsex == 0 ? "selected":""}>女</option>
 										</select>
 									</div>

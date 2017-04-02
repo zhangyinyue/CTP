@@ -15,9 +15,9 @@ public class TBookList {
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String fid;
     @Column(name="fuser_id")
-    private String fuserID;
+    private long fuserID;
     @Column(name="fbook_id")
-    private String fbookID;
+    private long fbookID;
 
     public String getFid() {
         return fid;
@@ -27,19 +27,19 @@ public class TBookList {
         this.fid = fid;
     }
 
-    public String getFuserID() {
+    public long getFuserID() {
         return fuserID;
     }
 
-    public void setFuserID(String fuserID) {
+    public void setFuserID(long fuserID) {
         this.fuserID = fuserID;
     }
 
-    public String getFbookID() {
+    public long getFbookID() {
         return fbookID;
     }
 
-    public void setFbookID(String fbookID) {
+    public void setFbookID(long fbookID) {
         this.fbookID = fbookID;
     }
 }

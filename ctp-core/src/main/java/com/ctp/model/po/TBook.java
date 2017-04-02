@@ -13,9 +13,8 @@ import java.math.BigDecimal;
 @Table(name="t_book")
 public class TBook {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    private String fid;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long fid;
     private String fname;
     @Column(name="fimage", columnDefinition="BLOB", nullable=true)
     private byte[] fimage;
@@ -122,15 +121,16 @@ public class TBook {
         this.fscore = fscore;
     }
 
-    public String getFid() {
-        return fid;
-    }
 
     public String getFname() {
         return fname;
     }
 
-    public void setFid(String fid) {
+    public long getFid() {
+        return fid;
+    }
+
+    public void setFid(long fid) {
         this.fid = fid;
     }
 

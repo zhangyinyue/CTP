@@ -6,16 +6,16 @@ package com.ctp.model.vo;
  */
 public class UserVO extends PageVO{
 
-	private String id;
+	private long id;
 	private String name;
 	private String[] ids;
 	private String idsStr;
-	
-	public String getId() {
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

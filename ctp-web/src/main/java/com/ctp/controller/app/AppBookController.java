@@ -5,10 +5,7 @@ import com.ctp.controller.config.ControllerName;
 import com.ctp.controller.config.ControllerReturnMsg;
 import com.ctp.controller.config.PagePath;
 import com.ctp.dao.base.impl.ListPage;
-import com.ctp.model.po.TBook;
-import com.ctp.model.po.TBookList;
-import com.ctp.model.po.TBookReview;
-import com.ctp.model.po.TUser;
+import com.ctp.model.po.*;
 import com.ctp.model.vo.BookVO;
 import com.ctp.model.vo.UserVO;
 import com.ctp.service.admin.inter.IAdminBookService;
@@ -20,6 +17,17 @@ import com.ctp.utils.StringUtils;
 import com.ctp.utils.URequest;
 import com.ctp.utils.UResponse;
 import org.apache.log4j.Logger;
+import org.apache.mahout.cf.taste.common.TasteException;
+import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
+import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
+import org.apache.mahout.cf.taste.impl.model.jdbc.MySQLJDBCDataModel;
+import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
+import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
+import org.apache.mahout.cf.taste.impl.similarity.EuclideanDistanceSimilarity;
+import org.apache.mahout.cf.taste.model.DataModel;
+import org.apache.mahout.cf.taste.recommender.RecommendedItem;
+import org.apache.mahout.cf.taste.recommender.Recommender;
+import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,11 +37,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zyy on 2017/3/12 0012.
@@ -58,7 +65,7 @@ public class AppBookController {
      * @return
      */
     @RequestMapping(value=ControllerName.APP_BOOK_LIST,method={RequestMethod.GET,RequestMethod.POST})
-    public String toUserPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+    public String toUserPage(HttpServletRequest request, HttpServletResponse response, BookVO book) throws IOException, TasteException {
         book.setPageSize(4);
         book.setSort(true);
         ListPage newBooks = adminBookService.queryBookByPage(book);
@@ -75,6 +82,19 @@ public class AppBookController {
         }
         ListPage userPage = userService.getFriends(user);
         request.setAttribute("userPage", userPage);
+
+
+        DataModel model = new MySQLJDBCDataModel(dataSource,"t_book_review","fuser_id","fbook_id","fscore","fdate");
+        UserSimilarity userSim = new EuclideanDistanceSimilarity(model);
+        NearestNUserNeighborhood neighbor = new NearestNUserNeighborhood(2, userSim, model);
+        Recommender r = new GenericUserBasedRecommender(model, neighbor, userSim);
+        //LongPrimitiveIterator iter = model.getUserIDs();
+        List<RecommendedItem> list = r.recommend(tUser == null ? 0:tUser.getFid(), 3);
+       List<TBook> books = new ArrayList<>();
+       for(RecommendedItem item : list){
+           books.add(adminBookService.getBook(String.valueOf(item.getItemID())));
+       }
+        request.setAttribute("reviewBooks", books);
         return PagePath.APP_BOOK_LIST.toString();
     }
 
@@ -122,14 +142,14 @@ public class AppBookController {
 
         user.setPageSize(10);
         TUser tUser = (TUser) URequest.getSession(request,SessionEnum.APPUSER.toString());
-        if (tUser != null && (user.getId() == null || "".equals(user.getId()))) {
+        if (tUser != null && (user.getId() == 0 || "".equals(user.getId()))) {
             user.setId(tUser.getFid());
             URequest.removeSession(request,"friend");
         }else{//好友的书架
-            TUser friend = userService.getUser(user.getId());
+            TUser friend = userService.getUser(String.valueOf(user.getId()));
             URequest.setSession(request,"friend",friend);
         }
-        ListPage bookPage = adminBookService.getMyBooks(user.getId());
+        ListPage bookPage = adminBookService.getMyBooks(String.valueOf(user.getId()));
         if (tUser != null ) {
             user.setId(tUser.getFid());
         }
@@ -155,7 +175,7 @@ public class AppBookController {
     }
 
     @RequestMapping(value=ControllerName.APP_BOOK_DETAIL,method={RequestMethod.GET,RequestMethod.POST})
-    public String toSubPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
+    public String toSubPage(HttpServletRequest request, HttpServletResponse response, BookVO book) throws TasteException {
        TBook tBook = adminBookService.getBook(book.getId());
         request.setAttribute("book",tBook);
         UserVO user = new UserVO();
@@ -168,6 +188,18 @@ public class AppBookController {
         request.setAttribute("userPage", userPage);
         ListPage bookReviews =  adminBookService.getBookReviews(book.getId());
         request.setAttribute("bookReviews", bookReviews);
+
+        DataModel model = new MySQLJDBCDataModel(dataSource,"t_book_review","fuser_id","fbook_id","fscore","fdate");
+        UserSimilarity userSim = new EuclideanDistanceSimilarity(model);
+        NearestNUserNeighborhood neighbor = new NearestNUserNeighborhood(2, userSim, model);
+        Recommender r = new GenericUserBasedRecommender(model, neighbor, userSim);
+        //LongPrimitiveIterator iter = model.getUserIDs();
+        List<RecommendedItem> list = r.recommend(tUser == null ? 0:tUser.getFid(), 3);
+        List<TBook> books = new ArrayList<>();
+        for(RecommendedItem item : list){
+            books.add(adminBookService.getBook(String.valueOf(item.getItemID())));
+        }
+        request.setAttribute("reviewBooks", books);
         return PagePath.APP_BOOK_DETAIL.toString();
     }
 
@@ -230,11 +262,10 @@ public class AppBookController {
      * @param bookReview
      * @return
      */
-    @RequestMapping(value=ControllerName.APP_ADD_BOOKREVIEW,method=RequestMethod.GET)
+    @RequestMapping(value=ControllerName.APP_ADD_BOOKREVIEW,method=RequestMethod.POST)
     public void toAddBookReview(TBookReview bookReview,HttpServletRequest request,HttpServletResponse response){
         adminBookService.addBookReview(bookReview);
         UResponse.writeSuccess(response, "评分成功");
 
     }
-
 }

@@ -16,7 +16,7 @@
 						<div class="portlet-title">
 							<div class="caption"><i class="icon-globe"></i>书籍列表</div>
 							<div class="actions">
-								<a href="javascript:Book.dataOperation('');" class="btn red"><i class="icon-pencil"></i>新增<i class="icon-plus"></i></a>
+								<a href="javascript:Book.dataOperation('0');" class="btn red"><i class="icon-pencil"></i>新增<i class="icon-plus"></i></a>
 								<button id="del" class="btn red">删除<i class="icon-minus"></i></button>
 							</div>
 						</div>

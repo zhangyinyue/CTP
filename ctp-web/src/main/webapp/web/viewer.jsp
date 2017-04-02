@@ -43,11 +43,12 @@
             if(r!=null)return  unescape(r[2]); return null;
         }
         function formsubmit() {
-            var fdesc = $("input[name='fdesc']").val();
+            var fdesc = $("textarea[name='fdesc']").val();
             var fscore = $("input[name='fscore']").val();
-            var fbookID = GetQueryString(file);
-            $.post("${basePath }",{fbookID:fbookID,fdesc:fdesc,fscore:fscore},function(result){
-               alert(result);
+            var fbookID = GetQueryString("file");
+            fbookID = fbookID.substring(6,fbookID.length-4);
+            $.post("${basePath }appBook/book/addbookreview",{fbookID:fbookID,fdesc:fdesc,fscore:fscore},function(result){
+               alert(result.data);
             });
         }
     </script>

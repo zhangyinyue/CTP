@@ -76,10 +76,10 @@ public class AppUserController {
      * 保存好友
      * @param userList
      */
-    @RequestMapping(value=ControllerName.APP_FRIEND_ADD,method=RequestMethod.GET)
-    public String toFriendSave(TUserList userList, HttpServletResponse response){
+    @RequestMapping(value=ControllerName.APP_FRIEND_ADD,method=RequestMethod.POST)
+    public void toFriendSave(TUserList userList, HttpServletResponse response){
         userService.addFriend(userList);
-        return  "redirect:/appBook/book/myFriends";
+        UResponse.writeSuccess(response, "添加成功");
     }
 
     /**

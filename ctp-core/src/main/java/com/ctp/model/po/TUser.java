@@ -1,11 +1,6 @@
 package com.ctp.model.po;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,9 +14,8 @@ import org.hibernate.annotations.GenericGenerator;
 public class TUser {
 
 	@Id
-	@GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-	private String fid;
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private long fid;
 	private String fname;
 	private byte fsex;
 	private int fage;
@@ -47,12 +41,6 @@ public class TUser {
 	}
 	public void setRemember(int remember) {
 		this.remember = remember;
-	}
-	public String getFid() {
-		return fid;
-	}
-	public void setFid(String fid) {
-		this.fid = fid;
 	}
 	public String getFname() {
 		return fname;
@@ -84,6 +72,12 @@ public class TUser {
 	public void setFpwd(String fpwd) {
 		this.fpwd = fpwd;
 	}
-	
-	
+
+	public long getFid() {
+		return fid;
+	}
+
+	public void setFid(long fid) {
+		this.fid = fid;
+	}
 }

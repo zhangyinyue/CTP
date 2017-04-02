@@ -185,7 +185,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 
 	@Override
 	public void saveUser(TUser user) {
-		if(StringUtils.isEmpty(user.getFid())){
+		if(user.getFid() == 0 || StringUtils.isEmpty(String.valueOf(user.getFid()))){
 			userDao.save(user);
 		}else{
 			userDao.update(user);
@@ -201,7 +201,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 
 	@Override
 	public TUser getUser(String userId) {
-		if (userId == null || "".equals(userId)) {
+		if (userId == null || "0".equals(userId)) {
 			return  null;
 		}
 		TUser user =  userDao.getUser(userId);
@@ -231,14 +231,14 @@ public class AdminUserServiceImpl implements IAdminUserService {
 	@Override
 	public void delFriend(String friendId) {
 		TUser user = (TUser) ContextUtils.getRequest().getSession().getAttribute(SessionEnum.APPUSER.toString());
-		userDao.delFriend(user.getFid(),friendId);
+		userDao.delFriend(String.valueOf(user.getFid()),friendId);
 	}
 
 	@Override
 	public void addFriend(TUserList userList) {
 		TUser user = (TUser) ContextUtils.getRequest().getSession().getAttribute(SessionEnum.APPUSER.toString());
 		if (user != null) {
-			userList.setFuserID(user.getFid());
+			userList.setFuserID(String.valueOf(user.getFid()));
 		}
 		userDao.addFriend(userList);
 	}

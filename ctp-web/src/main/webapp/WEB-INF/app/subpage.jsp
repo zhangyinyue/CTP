@@ -73,16 +73,26 @@
             <div class="templatemo_content_left_section">
                 <h1>猜你喜欢</h1>
                 <ul>
-                    <li><a href="subpage.html">《巨人的陨落》</a></li>
-                    <li><a href="subpage.html">《乖，摸摸头》</a></li>
-
+                    <c:choose>
+                        <c:when test="${empty sessionScope.appUser}">
+                            <a href="${basePath}appBook/book/login" >请先登陆</a>
+                        </c:when>
+                        <c:when test="${empty reviewBooks}">
+                            欢迎来到读友会，请您多多享受查阅书籍的乐趣~
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${reviewBooks}" var="d">
+                                <li><a href="${basePath}appBook/book/subpage?id=${d.fid}">${d.fname}</a></li>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
             <div class="templatemo_content_left_section">
                 <h1>我的好友</h1>
                 <ul>
                     <c:choose>
-                        <c:when test="${empty userPage.dataList}">
+                        <c:when test="${empty sessionScope.appUser}">
                             <a href="${basePath}appBook/book/login" >请先登陆</a>
                         </c:when>
                         <c:otherwise>
@@ -119,22 +129,19 @@
             <div id="demo" class="demolayout">
                 <ul id="demo-nav" class="demolayout">
                     <li class="active" ><a href="#tab1">短评</a></li>
-                    <li><a href="#tab2">猜你喜欢</a></li>
+                    <li><a href="#tab2">相关书籍</a></li>
                 </ul>
                 <div class="tabs-container">
                     <div style="display: block;" class="tab" id="tab1">
-                        <div class="tab-item">
-                            <p class="item-userinfo">
-                                <span class="name">黑眼圈小姐</span> <span>2017-03-08</span>
-                            </p>
-                            <p class="item-content">老师太可爱了，神经大条却观察力敏锐，故事轻松有趣，确实不同于东野的其他书。ps，老师快和新藤在一起吧，超般配啊！</p>
-                        </div>
-                        <div class="tab-item">
-                            <p class="item-userinfo">
-                                <span class="name">黑眼圈小姐</span> <span>2017-03-08</span>
-                            </p>
-                            <p class="item-content">老师太可爱了，神经大条却观察力敏锐，故事轻松有趣，确实不同于东野的其他书。ps，老师快和新藤在一起吧，超般配啊！</p>
-                        </div>
+
+                        <c:forEach items="${bookReviews.dataList }" var="d">
+                            <div class="tab-item">
+                                <p class="item-userinfo">
+                                    <span class="name">${d[1].fname}</span> <span>${fns:dateFormat(d[0].fdate/1000)}</span><a href="javascript:addFriend('${d[1].fid}');">加为好友</a>
+                                </p>
+                                <p class="item-content">${d[0].fdesc}</p>
+                            </div>
+                        </c:forEach>
 
                     </div>
                     <div style="display: none;" class="tab" id="tab2">
@@ -167,7 +174,13 @@
             $(this).addClass('active').siblings().removeClass('active');
             $(".tabs-container .tab").eq(i).show().siblings().hide();
         })
+
     })();
+    function addFriend(userId) {
+        $.post("${basePath}appUser/user/addfriend",{ffriendID:userId},function (result){
+            alert(result.data);
+        });
+    }
 </script>
 </body>
 </html>

@@ -74,7 +74,7 @@
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">出版时间<span class="required">*</span></label>
+									<label class="control-label">简介<span class="required">*</span></label>
 									<div class="controls">
 										<textarea cols="160" rows="10" name="fdesc" >${book.fdesc}</textarea>
 									</div>

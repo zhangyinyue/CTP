@@ -28,7 +28,7 @@ public class BookDaoImpl implements IBookDao{
 
     @Override
     public TBook getBook(String bookId) {
-        return baseDao.get(TBook.class, bookId);
+        return baseDao.get(TBook.class, Long.parseLong(bookId));
     }
 
     @Override

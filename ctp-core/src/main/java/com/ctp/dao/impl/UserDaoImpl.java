@@ -52,7 +52,7 @@ public class UserDaoImpl implements IUserDao {
 
 	@Override
 	public TUser getUser(String userId) {
-		return baseDao.get(TUser.class, userId);
+		return baseDao.get(TUser.class, Long.parseLong(userId));
 	}
 
 	@Override
