@@ -47,9 +47,9 @@
     <div id="templatemo_menu">
         <ul>
             <li><a href="${basePath}appBook/book/list" >首页</a></li>
-            <li><a href="${basePath}appBook/book/books" class="current">书籍列表</a></li>
+            <li><a href="${basePath}appBook/book/books" >书籍列表</a></li>
             <li><a href="${basePath}appBook/book/newBooks">新书上架</a></li>
-            <li><a href="${basePath}appBook/book/myfactory" >猜你喜欢</a></li>
+            <li><a href="${basePath}appBook/book/myfactory" class="current">猜你喜欢</a></li>
             <li><a href="${basePath}appBook/book/myFriends">我的好友</a></li>
             <li><a href="${basePath}appBook/book/myBooks">我的书架</a></li>
             <c:if test="${empty sessionScope.appUser}">
@@ -88,35 +88,43 @@
         <div class="templatemo_content_right" style="width:800px;">
             <div class="title">
                 <span class="title_icon"><img src="${basePath}assets/images/books_1.png" alt="" title=""></span>
-                书籍列表</div>
-            <c:forEach items="${listPage.dataList }" var="d" varStatus="idx">
-                <div class="templatemo_product_box" style="height: 300px;">
-                    <h1>${d.fname }  <span>(作者 ${d.fauthor})</span></h1>
-                    <img src="${basePath }appBook/book/image?bookId=${d.fid}" style="width:100px; height:150px"/>
-                    <div class="product_info">
-                        <p>${d.fdesc}</p>
-                        <p>出版社：${d.fpublish}</p>
-                        <p>出版时间：${fns:dateFormat(d.fpublishyear) }</p>
-                        <div class="buy_now_button" style="margin-left: -20px;"><a href="${basePath}appBook/book/addmyboos?fbookID=${d.fid}">加入书架</a></div>
-                        <div class="detail_button" style="margin-top: -36px;margin-left: 85px;"><a href="${basePath}appBook/book/subpage?id=${d.fid}">详情</a></div>
-                    </div>
-                    <div class="cleaner">&nbsp;</div>
-                </div>
-                <c:choose>
-                    <c:when test="${idx.index != 0 && idx.index % 2 != 0}">
-                        <div class="cleaner_with_height">&nbsp;</div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="cleaner_with_width">&nbsp;</div>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-           <%-- <a href="#" style="margin-left: 600px;">更多...</a>--%>
-
+                猜你喜欢</div>
+            <c:choose>
+                <c:when test="${empty sessionScope.appUser}">
+                    <a href="${basePath}appBook/book/login" >请先登陆</a>
+                </c:when>
+                <c:when test="${empty reviewBooks}">
+                    欢迎来到读友会，请您多多享受查阅书籍的乐趣~
+                </c:when>
+                <c:otherwise>
+                    <c:forEach items="${reviewBooks}" var="d" varStatus="idx">
+                        <div class="templatemo_product_box" style="height: 300px;">
+                            <h1>${d.fname }  <span>(作者 ${d.fauthor})</span></h1>
+                            <img src="${basePath }appBook/book/image?bookId=${d.fid}" style="width:100px; height:150px"/>
+                            <div class="product_info">
+                                <p>${d.fdesc}</p>
+                                <p>出版社：${d.fpublish}</p>
+                                <p>出版时间：${fns:dateFormat(d.fpublishyear) }</p>
+                                <div class="buy_now_button" style="margin-left: -20px;"><a href="${basePath}appBook/book/addmyboos?fbookID=${d.fid}">加入书架</a></div>
+                                <div class="detail_button" style="margin-top: -36px;margin-left: 85px;"><a href="${basePath}appBook/book/subpage?id=${d.fid}">详情</a></div>
+                            </div>
+                            <div class="cleaner">&nbsp;</div>
+                        </div>
+                        <c:choose>
+                            <c:when test="${idx.index != 0 && idx.index % 2 != 0}">
+                                <div class="cleaner_with_height">&nbsp;</div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="cleaner_with_width">&nbsp;</div>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
        </div>
 
         <div class="cleaner_with_height">&nbsp;</div>
-        ${fns:appPaging(listPage)};
+        <%--${fns:appPaging(listPage)};--%>
     </div> <!-- end of content -->
 
     <div id="templatemo_footer">

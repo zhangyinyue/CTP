@@ -102,6 +102,31 @@ public class AppBookController {
         return PagePath.APP_BOOK_LIST.toString();
     }
 
+    /**
+     * 跳转到书籍列表
+     * @param request
+     * @param response
+     * @param book
+     * @return
+     */
+    @RequestMapping(value=ControllerName.APP_BOOK_MYFACTORY,method={RequestMethod.GET,RequestMethod.POST})
+    public String toMyfactoryPage(HttpServletRequest request, HttpServletResponse response, BookVO book) throws IOException, TasteException {
+
+        DataModel model = new MySQLJDBCDataModel(dataSource,"t_book_review","fuser_id","fbook_id","fscore","fdate");
+        UserSimilarity userSim = new EuclideanDistanceSimilarity(model);
+        NearestNUserNeighborhood neighbor = new NearestNUserNeighborhood(2, userSim, model);
+        Recommender r = new GenericUserBasedRecommender(model, neighbor, userSim);
+        //LongPrimitiveIterator iter = model.getUserIDs();
+        TUser tUser = (TUser) URequest.getSession(request,SessionEnum.APPUSER.toString());
+        List<RecommendedItem> list = r.recommend(tUser == null ? 0:tUser.getFid(), 3);
+        List<TBook> books = new ArrayList<>();
+        for(RecommendedItem item : list){
+            books.add(adminBookService.getBook(String.valueOf(item.getItemID())));
+        }
+        request.setAttribute("reviewBooks", books);
+        return PagePath.APP_BOOK_MYFACTORY.toString();
+    }
+
     @RequestMapping(value=ControllerName.APP_LOGIN,method={RequestMethod.GET,RequestMethod.POST})
     public String toLoginPage(HttpServletRequest request, HttpServletResponse response, BookVO book){
 

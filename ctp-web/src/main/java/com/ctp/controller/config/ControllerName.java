@@ -40,6 +40,7 @@ public interface ControllerName {
 
 	String APP_BOOK = "appBook";
 	String APP_BOOK_LIST = "/book/list";
+	String APP_BOOK_MYFACTORY = "/book/myfactory";
 	String APP_LOGIN = "book/login";
 	String APP_ACCOUNT = "book/myAccount";
 	String APP_REGISTER = "book/register";

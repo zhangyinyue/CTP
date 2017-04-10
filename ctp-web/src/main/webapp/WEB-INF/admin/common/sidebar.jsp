@@ -18,12 +18,12 @@
 			</form>
 			<!-- END RESPONSIVE QUICK SEARCH FORM -->
 		</li>
-		<li class="${ empty pid && empty cid  ? 'active' : ''  }">
+		<%--<li class="${ empty pid && empty cid  ? 'active' : ''  }">
 			<a href="${basePath }admin/index/toIndex">
 			<i class="icon-home"></i> 
 			<span class="title">首页</span>
 			</a>
-		</li>
+		</li>--%>
 		<c:forEach items="${sessionScope.authTree.tree}" var="auth" varStatus="i">
 			 <c:choose>
 			 <%--父节点 --%>
